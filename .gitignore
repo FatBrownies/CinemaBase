@@ -1,6 +1,34 @@
-.gradle
-/local.properties
-/.idea/workspace.xml
-/.idea/libraries
+#build application files
+*.apk
+*.ap_
+
+#dex files for VM
+*.dex
+
+#java class files
+*.class
+
+#generated files
+bin/
+gen/
+
+#Local config file
+local.properties
+
+#Windows thumbnail db
+Thumb.db
+
+#OSX files
 .DS_Store
-/build
+
+#Eclipse project files
+.classpath
+.project
+
+#Android Studio files
+*.iml
+.idea
+.gradle
+.idea/workspace.xml
+.idea/libraries
+build/
