@@ -1,15 +1,5 @@
 <resources>
     <string name="app_name">CinemaBase</string>
-    <string name="action_social">Social</string>
+
     <string name="action_settings">Settings</string>
-    <string name="action_help">Help</string>
-    <string name="action_logout">Logout</string>
-    <string-array name="reviews">
-        <item>Movie Reviewed Number of *</item>
-        <item>Text Review</item>
-    </string-array>
-    <string-array name="db">
-        <item>Movie Database Rated Number 1</item>
-        <item>Movie Database Rated Number 2</item>
-    </string-array>
 </resources>
