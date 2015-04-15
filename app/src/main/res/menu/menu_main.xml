@@ -1,26 +1,20 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools" tools:context=".MainActivity">
-<<<<<<< HEAD
     <item
         android:id="@+id/action_social"
         android:title="@string/action_social"
-        android:orderInCategory="100" app:showAsAction="always" />
+        android:orderInCategory="100" app:showAsAction="never" />
     <item
         android:id="@+id/action_settings"
         android:title="@string/action_settings"
-        android:orderInCategory="100" app:showAsAction="always" />
+        android:orderInCategory="100" app:showAsAction="never" />
     <item
         android:id="@+id/action_help"
         android:title="@string/action_help"
-        android:orderInCategory="100" app:showAsAction="always" />
+        android:orderInCategory="100" app:showAsAction="never" />
     <item
         android:id="@+id/action_logout"
         android:title="@string/action_logout"
-        android:orderInCategory="100" app:showAsAction="always" />
-
-=======
-    <item android:id="@+id/action_settings" android:title="@string/action_settings"
         android:orderInCategory="100" app:showAsAction="never" />
->>>>>>> parent of f1c76d6... Updated Layout
 </menu>

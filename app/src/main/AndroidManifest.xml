@@ -8,11 +8,7 @@
         android:label="@string/app_name"
         android:theme="@style/AppTheme" >
         <activity
-<<<<<<< HEAD
             android:screenOrientation="landscape"
-            android:theme="@style/ThemeOverlay.AppCompat.Light"
-=======
->>>>>>> parent of f1c76d6... Updated Layout
             android:name=".MainActivity"
             android:label="@string/app_name" >
             <intent-filter>
