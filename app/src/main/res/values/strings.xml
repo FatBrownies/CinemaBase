@@ -1,5 +1,7 @@
 <resources>
     <string name="app_name">CinemaBase</string>
+    <string name="action_settings">Settings</string>
+    <string name="action_help">Help</string>
     <string-array name="review">
         <item>this is a review from omdb database</item>
         <item>this is a review from omdb database</item>
@@ -12,8 +14,5 @@
         <item>this is a review from a user </item>
         <item>this is a review from a user </item>
     </string-array>
-    <string name="action_social">Social</string>
-    <string name="action_settings">Settings</string>
-    <string name="action_help">Help</string>
-    <string name="action_logout">Logout</string>
+
 </resources>

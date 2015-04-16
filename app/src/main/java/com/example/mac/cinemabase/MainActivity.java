@@ -5,6 +5,7 @@ import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 
 public class MainActivity extends ActionBarActivity {
@@ -32,6 +33,13 @@ public class MainActivity extends ActionBarActivity {
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
+            Toast toast = Toast.makeText(getApplicationContext(),"settings menu",Toast.LENGTH_LONG);
+            toast.show();
+            return true;
+        }
+        else if (id == R.id.action_help){
+            Toast toast = Toast.makeText(getApplicationContext(),"help menu",Toast.LENGTH_LONG);
+            toast.show();
             return true;
         }
 
