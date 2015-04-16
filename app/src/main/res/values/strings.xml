@@ -1,10 +1,10 @@
 <resources>
     <string name="app_name">CinemaBase</string>
     <string-array name="review">
-        <item>this is a review of a random movie</item>
-        <item>this is a review of a random movie</item>
-        <item>this is a review of a random movie</item>
-        <item>this is a review of a random movie</item>
+        <item>this is a review from omdb database</item>
+        <item>this is a review from omdb database</item>
+        <item>this is a review from omdb database</item>
+        <item>this is a review from omdb database</item>
     </string-array>
     <string-array name="db">
         <item>this is a review from a user </item>
