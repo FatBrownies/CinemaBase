@@ -4,6 +4,9 @@ import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
+import android.widget.Toast;
 
 
 public class SettingsPage extends ActionBarActivity {
@@ -11,9 +14,37 @@ public class SettingsPage extends ActionBarActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_settings_page);
-    }
 
+        setContentView(R.layout.activity_settings_page);
+
+        final Button login = (Button) findViewById(R.id.social_login_button);
+        login.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                // Perform action on click
+                Toast toast = Toast.makeText(getApplicationContext(),"logging to facebook",Toast.LENGTH_SHORT);
+                toast.show();
+            }
+        });
+
+        final Button logout = (Button) findViewById(R.id.social_logout_button);
+        logout.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                // Perform action on click
+                Toast toast = Toast.makeText(getApplicationContext(),"logging out of facebook",Toast.LENGTH_SHORT);
+                toast.show();
+            }
+        });
+
+        final Button movieDB = (Button) findViewById(R.id.movie_data_base);
+        movieDB.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                // Perform action on click
+                Toast toast = Toast.makeText(getApplicationContext(),"data base X",Toast.LENGTH_SHORT);
+                toast.show();
+            }
+        });
+
+    }
 
 /*    @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -22,7 +53,6 @@ public class SettingsPage extends ActionBarActivity {
         return true;
     }
 
-    @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         // Handle action bar item clicks here. The action bar will
         // automatically handle clicks on the Home/Up button, so long
@@ -36,6 +66,4 @@ public class SettingsPage extends ActionBarActivity {
 
         return super.onOptionsItemSelected(item);
     }*/
-
-
 }

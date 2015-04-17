@@ -4,5 +4,5 @@
     tools:context="com.example.mac.cinemabase.SettingsPage">
 <!--    <item android:id="@+id/action_settings" android:title="@string/action_settings"
         android:orderInCategory="100" app:showAsAction="never" />-->
-    <item android:id="@+id/switch_db" android:title="@string/switch_database"></item>
+   <!-- <item android:id="@+id/switch_db" android:title="@string/switch_database"></item>-->
 </menu>

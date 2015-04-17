@@ -8,6 +8,7 @@
     tools:context="com.example.mac.cinemabase.SettingsPage">
 
     <Button
+        android:id="@+id/social_login_button"
         android:layout_alignTop="@+id/button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -17,24 +18,23 @@
         android:layout_centerHorizontal="true"/>
 
     <Button
-        android:id="@+id/button2"
-        android:layout_alignLeft="@+id/button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:padding="@dimen/abc_text_size_button_material"
-        android:background="@color/button_material_light"
-        android:layout_alignParentLeft="true"
-        android:text="Select\nMovie Data Base"
-         />
-
-    <Button
-        android:id="@+id/button"
+        android:id="@+id/social_logout_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:padding="@dimen/abc_text_size_button_material"
         android:background="@color/button_material_light"
         android:layout_alignParentRight="true"
         android:text="Social media\nLog out"/>
+
+    <Button
+        android:id="@+id/movie_data_base"
+        android:layout_alignLeft="@+id/movie_data_base"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/abc_text_size_button_material"
+        android:background="@color/button_material_light"
+        android:layout_alignParentLeft="true"
+        android:text="Select\nMovie Data Base"/>
 
     <TextView
         android:layout_width="wrap_content"
@@ -45,7 +45,7 @@
         Github: https://github.com/FatBrownies/CinemaBase\n"
         android:textColorHighlight="#FFF"
         android:textColor="#FFF"
-        android:layout_below="@+id/button2"
+        android:layout_below="@+id/movie_data_base"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:layout_marginTop="52dp" />

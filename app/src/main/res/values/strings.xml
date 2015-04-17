@@ -3,21 +3,21 @@
     <string name="action_settings">Settings</string>
 
     <string-array name="review">
-        <item>this is a review from omdb database</item>
-        <item>this is a review from omdb database</item>
-        <item>this is a review from omdb database</item>
-        <item>this is a review from omdb database</item>
+        <item>Movie Data Base [top 5]</item>
+        <item>Movie Data Base [top 5]</item>
+        <item>Movie Data Base [top 5]</item>
+        <item>Movie Data Base [top 5]</item>
+        <item>Movie Data Base [top 5]</item>
     </string-array>
     <string-array name="db">
-        <item>this is a review from a user </item>
-        <item>this is a review from a user </item>
-        <item>this is a review from a user </item>
-        <item>this is a review from a user </item>
+        <item>Movie Reviewed [Stars given]: Text Review </item>
+        <item>Movie Reviewed [Stars given]: Text Review </item>
+        <item>Movie Reviewed [Stars given]: Text Review </item>
+        <item>Movie Reviewed [Stars given]: Text Review </item>
     </string-array>
 
     <!--Strings for settings page-->
     <string name="title_activity_settings_page">SettingsPage</string>
-
-    <string name="switch_database">SwitchMovieDatabase</string>
+ <!--   <string name="switch_database">SwitchMovieDatabase</string>-->
 
 </resources>
