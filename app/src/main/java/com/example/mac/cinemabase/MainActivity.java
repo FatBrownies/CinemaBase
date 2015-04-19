@@ -3,6 +3,7 @@ package com.example.mac.cinemabase;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.res.Configuration;
+import android.support.v4.view.GravityCompat;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v4.widget.DrawerLayout;
 import android.os.Bundle;
@@ -52,12 +53,16 @@ public class MainActivity extends Activity {
         mDrawerToggle = new CustomActionBarDrawerToggle(this,mDrawerLayout);
         mDrawerLayout.setDrawerListener(mDrawerToggle);
 
+        //custom shadow which overlays the main content when the drawer opens
+        mDrawerLayout.setDrawerShadow(R.drawable.drawer_shadow, GravityCompat.START);
+
         //setup drawer titles
         mDrawerTitles = getResources().getStringArray(R.array.drawerTitles);
         mDrawerList = (ListView)findViewById(R.id.left_drawer);
         mDrawerList.setAdapter(new ArrayAdapter<String>(this,
                 R.layout.drawer_list_item,mDrawerTitles));
         mDrawerList.setOnItemClickListener(new DrawerItemClickListener());
+
     }
 
     /**
