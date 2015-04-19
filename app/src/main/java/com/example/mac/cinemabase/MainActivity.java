@@ -11,6 +11,8 @@ import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
 
@@ -18,6 +20,12 @@ public class MainActivity extends Activity {
 
     //TAG for debugging messages
     private final String TAG = "MainActivity";
+
+    //drawer options
+    private final int SOCIAL    = 0;
+    private final int SETTINGS  = 1;
+    private final int HELP      = 2;
+    private final int LOGOUT    = 3;
 
     //Drawer components
     private String[] mDrawerTitles;
@@ -38,11 +46,55 @@ public class MainActivity extends Activity {
      */
     private void initDrawerComponents(){
         isSlideOpen = false;
-        mDrawerTitles = getResources().getStringArray(R.array.drawerTitles);
+
+        //setup functionality of drawer
         mDrawerLayout = (DrawerLayout)findViewById(R.id.drawer_layout);
-        mDrawerList = (ListView)findViewById(R.id.left_drawer);
         mDrawerToggle = new CustomActionBarDrawerToggle(this,mDrawerLayout);
         mDrawerLayout.setDrawerListener(mDrawerToggle);
+
+        //setup drawer titles
+        mDrawerTitles = getResources().getStringArray(R.array.drawerTitles);
+        mDrawerList = (ListView)findViewById(R.id.left_drawer);
+        mDrawerList.setAdapter(new ArrayAdapter<String>(this,
+                R.layout.drawer_list_item,mDrawerTitles));
+        mDrawerList.setOnItemClickListener(new DrawerItemClickListener());
+    }
+
+    /**
+     * private class which listens for user selected options
+     */
+    private class DrawerItemClickListener implements ListView.OnItemClickListener{
+
+        @Override
+        public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+            Log.d(TAG,"Selected " + position);
+            selected(position);
+        }
+    }
+
+    /**
+     *display appropriate activity based on user selection
+     * @param pos array position of user selected
+     */
+    private void selected(int pos){
+        Intent intent = null;
+        switch (pos){
+            case SOCIAL:
+                break;
+            case SETTINGS:
+                intent = new Intent(this, SettingsPage.class);
+                break;
+            case HELP:
+                break;
+            case LOGOUT:
+                break;
+            default:
+                Log.e(TAG,"Error: position " + pos + " is out of range");
+                return;
+        }
+        if(intent != null){
+            startActivity(intent);
+        }
     }
 
     //Extended ActionBarDrawer
@@ -85,25 +137,6 @@ public class MainActivity extends Activity {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_main, menu);
         return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            /*Toast toast = Toast.makeText(getApplicationContext(),"settings menu",Toast.LENGTH_LONG);
-            toast.show();*/
-            Intent intent = new Intent(this, SettingsPage.class);
-            startActivity(intent);
-            return true;
-        }
-
-        return super.onOptionsItemSelected(item);
     }
 
     /**
