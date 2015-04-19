@@ -15,9 +15,19 @@
         <item>Movie Reviewed [Stars given]: Text Review </item>
         <item>Movie Reviewed [Stars given]: Text Review </item>
     </string-array>
+    <string-array name="drawerTitles">
+        <item>Social</item>
+        <item>Settings</item>
+        <item>Help</item>
+        <item>Logout</item>
+    </string-array>
 
+
+    <string name="drawer_open">Open navigation drawer</string>
+    <string name="drawer_close">Close navigation drawer</string>
     <!--Strings for settings page-->
     <string name="title_activity_settings_page">SettingsPage</string>
  <!--   <string name="switch_database">SwitchMovieDatabase</string>-->
+    <string name="iconDrawer">Open Side Drawer</string>
 
 </resources>
