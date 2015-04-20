@@ -43,8 +43,6 @@ public class MainActivity extends Activity {
         setContentView(R.layout.activity_main);
         initDrawerComponents();
 
-        OMDBRequest req = new OMDBRequest(this);
-        req.requestMovie("Shrek");
     }
 
     /**
