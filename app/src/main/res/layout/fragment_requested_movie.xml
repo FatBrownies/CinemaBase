@@ -1,0 +1,122 @@
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="horizontal"
+    tools:context="com.example.mac.cinemabase.RequestedMovie"
+    android:baselineAligned="false">
+
+    <!--layout for the image and awards-->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:layout_weight="2">
+
+        <!-- Part of the volley networking library -->
+        <com.android.volley.toolbox.NetworkImageView
+            android:id="@+id/networkImageView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:layout_centerHorizontal="true" />
+
+        <TextView
+            android:id="@+id/nominationsText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/nominationsLabel"/>
+        <TextView
+            android:id="@+id/awardsText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/awardsLabel"/>
+    </LinearLayout>
+
+    <!-- Layout for movie information -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="3"
+        android:orientation="vertical">
+
+        <!-- Movie title-->
+        <TextView
+            android:id="@+id/movieTitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/titleLabel"/>
+
+        <!--year, rating, time and genre-->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:paddingTop="5dp"
+            android:layout_weight="8"
+            android:orientation="vertical">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/movieYear"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:text="@string/titleLabel"/>
+                <TextView
+                    android:id="@+id/movieRating"
+                    android:layout_height="match_parent"
+                    android:layout_width="match_parent"
+                    android:layout_weight="1"
+                    android:text="@string/ratingLabel"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/movieTime"
+                    android:layout_height="match_parent"
+                    android:layout_width="match_parent"
+                    android:layout_weight="1"
+                    android:text="@string/timeLabel"/>
+
+                <TextView
+                    android:id="@+id/movieGenre"
+                    android:layout_height="match_parent"
+                    android:layout_width="match_parent"
+                    android:layout_weight="1"
+                    android:text="@string/genreLabel"/>
+            </LinearLayout>
+
+         </LinearLayout>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingTop="10dp"
+            android:text="@string/plotLabel"/>
+
+        <!--Movie summary -->
+        <TextView
+            android:id="@+id/moviePlot"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="2"/>
+
+     </LinearLayout>
+
+
+</LinearLayout>

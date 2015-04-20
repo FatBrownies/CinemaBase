@@ -20,7 +20,7 @@ import android.widget.ListView;
 public class MainActivity extends Activity {
 
     //TAG for debugging messages
-    private final String TAG = "MainActivity";
+    private final String TAG = "MyTag";
 
     //drawer options
     private final int SOCIAL    = 0;
@@ -35,11 +35,16 @@ public class MainActivity extends Activity {
     private DrawerLayout mDrawerLayout;
     private boolean isSlideOpen;
 
+    private boolean internetConnection;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         initDrawerComponents();
+
+        OMDBRequest req = new OMDBRequest(this);
+        req.requestMovie("Shrek");
     }
 
     /**
