@@ -43,6 +43,9 @@ public class MainActivity extends Activity {
         setContentView(R.layout.activity_main);
         initDrawerComponents();
 
+        OMDBRequest request = new OMDBRequest(this);
+        request.requestMovie("Titanic");
+
     }
 
     /**

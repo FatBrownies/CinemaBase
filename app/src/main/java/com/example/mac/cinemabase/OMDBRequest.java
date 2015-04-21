@@ -58,6 +58,7 @@ public class OMDBRequest {
         new Response.ErrorListener(){
             @Override
             public void onErrorResponse(VolleyError error){
+                Log.d(TAG,"here");
                 Log.d(TAG, "Error " + error);
             }
         });
@@ -67,8 +68,10 @@ public class OMDBRequest {
     }
 
     private String constructURL(){
-        return SERVER_URL + "t=" + movieTitle +
+        String url =  SERVER_URL + "t=" + movieTitle +
                 "&y=&plot=" + PLOT_LENGTH + "&r=" + RESPONSE_TYPE;
+        Log.d(TAG, "url: " + url);
+        return url;
     }
 
 }
