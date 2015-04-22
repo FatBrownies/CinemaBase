@@ -27,8 +27,10 @@
 
         <TextView
             android:id="@+id/awardsText"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:textAlignment="center"/>
     </LinearLayout>
 
     <!-- Layout for movie information -->
@@ -49,8 +51,8 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:paddingTop="5dp"
-            android:layout_weight="6"
+            android:paddingTop="7dp"
+            android:layout_weight="7"
             android:orientation="vertical">
             <LinearLayout
                 android:layout_width="match_parent"
@@ -95,19 +97,30 @@
             </LinearLayout>
 
         </LinearLayout>
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:paddingTop="10dp"
-            android:text="@string/plotLabel"/>
-
-        <!--Movie summary -->
-        <TextView
-            android:id="@+id/moviePlot"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_weight="2"/>
+            android:layout_weight="2"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingTop="10dp"
+                android:text="@string/plotLabel"/>
+
+            <!--Movie summary -->
+            <ScrollView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <TextView
+                    android:id="@+id/moviePlot"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="2"/>
+            </ScrollView>
+
+        </LinearLayout>
 
     </LinearLayout>
 
