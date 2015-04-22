@@ -1,7 +1,13 @@
 package com.example.mac.cinemabase;
 
+import android.app.Fragment;
+import android.app.FragmentManager;
+import android.app.FragmentTransaction;
 import android.content.Context;
+import android.content.Intent;
+import android.net.Uri;
 import android.util.Log;
+import android.widget.Toast;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -44,7 +50,7 @@ public class OMDBRequest {
     public void requestMovie(String title){
         movieTitle = title;
         String url = constructURL();
-        JSONObject jsObj = new JSONObject();
+        final JSONObject jsObj = new JSONObject();
 
         jsObjRequest = new JsonObjectRequest(Request.Method.GET,
                 url, jsObj,
@@ -52,7 +58,9 @@ public class OMDBRequest {
 
                     @Override
                     public void onResponse(JSONObject response){
+                        Log.d(TAG, "json obj " + jsObj.toString());
                         Log.d(TAG, "RESPONSE: " + response);
+                        parseObject(response);
                     }
                 },
         new Response.ErrorListener(){
@@ -67,10 +75,29 @@ public class OMDBRequest {
 
     }
 
+    private void parseObject(JSONObject jsObj){
+
+        //create movie and attempt to parse
+        Movie movie = new Movie(jsObj);
+        boolean validMovie = movie.parse();
+
+        //if json returned false display message and return
+        if(!validMovie){
+            Log.d(TAG, "Invalid movie");
+            Toast.makeText(context,"Movie was not found",Toast.LENGTH_SHORT).show();
+        }
+
+        Log.d(TAG, "Initializing movie activity");
+        Intent intent = new Intent(context,RequestedMovie.class);
+        intent.putExtra("movie",movie);
+        context.startActivity(intent);
+
+    }
+
     private String constructURL(){
         String url =  SERVER_URL + "t=" + movieTitle +
                 "&y=&plot=" + PLOT_LENGTH + "&r=" + RESPONSE_TYPE;
-        Log.d(TAG, "url: " + url);
+        Log.d(TAG, "Constructed request url: " + url);
         return url;
     }
 

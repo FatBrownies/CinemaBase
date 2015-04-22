@@ -1,8 +1,10 @@
 package com.example.mac.cinemabase;
 
 import android.app.Activity;
+import android.app.FragmentManager;
 import android.content.Intent;
 import android.content.res.Configuration;
+import android.net.Uri;
 import android.support.v4.view.GravityCompat;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v4.widget.DrawerLayout;
@@ -15,6 +17,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.SearchView;
 
 
 public class MainActivity extends Activity {
@@ -35,17 +38,55 @@ public class MainActivity extends Activity {
     private DrawerLayout mDrawerLayout;
     private boolean isSlideOpen;
 
-    private boolean internetConnection;
+    private OMDBRequest searchMovie;
+    private SearchView searchView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        //init side drawer components
         initDrawerComponents();
 
-        OMDBRequest request = new OMDBRequest(this);
-        request.requestMovie("Titanic");
+        //setup searchview
+       initSearchView();
+    }
 
+
+    /**
+     * setup listener for searchview
+     */
+    private void initSearchView(){
+
+        //initialize movie searching object
+        searchMovie = new OMDBRequest(this);
+
+        //initialize movie search view and attach listeners
+        searchView = (SearchView)findViewById(R.id.searchBar);
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                Log.d(TAG, "submitted query " + query);
+                movieSearch(query);
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                return false;
+            }
+        });
+    }
+
+    //handle movie query
+    private void movieSearch(String movie){
+        if(movie.length() == 0 || movie == null){
+            Log.d(TAG,"Movie title query was empty");
+            return;
+        }
+        searchView.setQuery("",false);
+        searchMovie.requestMovie(movie);
     }
 
     /**
@@ -70,6 +111,7 @@ public class MainActivity extends Activity {
         mDrawerList.setOnItemClickListener(new DrawerItemClickListener());
 
     }
+
 
     /**
      * private class which listens for user selected options

@@ -1,6 +1,7 @@
 <resources>
     <string name="app_name">CinemaBase</string>
     <string name="action_settings">Settings</string>
+    <string name="requested_movie">Movie</string>
 
     <!-- Strings for searched movie fragment -->
     <string name="titleLabel">Title</string>
@@ -8,8 +9,7 @@
     <string name="ratingLabel">Rating</string>
     <string name="timeLabel">Time</string>
     <string name="genreLabel">Genre</string>
-    <string name="nominationsLabel">Nominations: </string>
-    <string name="awardsLabel">Awards</string>
+    <string name="awardsLabel">Awards: </string>
     <string name="plotLabel">Plot</string>
 
     <string-array name="review">
@@ -41,5 +41,8 @@
     <string name="iconDrawer">Open Side Drawer</string>
 <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="title_activity_requested_movie">RequestedMovie</string>
+
+    <string name="hello_world">Hello world!</string>
 
 </resources>
