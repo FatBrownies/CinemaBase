@@ -66,8 +66,9 @@ public class OMDBRequest {
         new Response.ErrorListener(){
             @Override
             public void onErrorResponse(VolleyError error){
-                Log.d(TAG,"here");
                 Log.d(TAG, "Error " + error);
+                Log.d(TAG, "Network Response: " + error.networkResponse.statusCode);
+                Log.d(TAG, "Localized Message: " + error.networkResponse.data.toString());
             }
         });
 
@@ -95,6 +96,7 @@ public class OMDBRequest {
     }
 
     private String constructURL(){
+        movieTitle = movieTitle.replace(" ", "+");
         String url =  SERVER_URL + "t=" + movieTitle +
                 "&y=&plot=" + PLOT_LENGTH + "&r=" + RESPONSE_TYPE;
         Log.d(TAG, "Constructed request url: " + url);

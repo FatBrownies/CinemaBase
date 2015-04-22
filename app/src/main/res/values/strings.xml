@@ -4,13 +4,12 @@
     <string name="requested_movie">Movie</string>
 
     <!-- Strings for searched movie fragment -->
-    <string name="titleLabel">Title</string>
-    <string name="yearLabel">Year</string>
-    <string name="ratingLabel">Rating</string>
-    <string name="timeLabel">Time</string>
-    <string name="genreLabel">Genre</string>
-    <string name="awardsLabel">Awards: </string>
-    <string name="plotLabel">Plot</string>
+    <string name="titleLabel">Title: </string>
+    <string name="yearLabel">Year: </string>
+    <string name="ratingLabel">Rating: </string>
+    <string name="timeLabel">Time: </string>
+    <string name="genreLabel">Genre: </string>
+    <string name="plotLabel">Plot: </string>
 
     <string-array name="review">
         <item>Movie Data Base [top 5]</item>

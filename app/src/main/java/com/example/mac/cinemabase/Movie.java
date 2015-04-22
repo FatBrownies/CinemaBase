@@ -74,7 +74,7 @@ public class Movie implements Parcelable {
 
             title = jsObj.getString("Title");
             year = jsObj.getString("Year");
-            rating = jsObj.getString("imdbVotes");
+            rating = jsObj.getString("imdbRating");
             runtime = jsObj.getString("Runtime");
             genre = jsObj.getString("Genre");
             plot = jsObj.getString("Plot");
