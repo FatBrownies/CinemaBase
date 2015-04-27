@@ -3,6 +3,8 @@
     <string name="action_settings">Settings</string>
     <string name="requested_movie">Movie</string>
 
+    <string name="facebook_app_id">813065802080348</string>
+
     <!-- Strings for searched movie fragment -->
     <string name="titleLabel">Title: </string>
     <string name="yearLabel">Year: </string>

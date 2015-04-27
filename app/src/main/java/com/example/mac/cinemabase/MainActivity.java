@@ -19,6 +19,9 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.SearchView;
 
+import com.facebook.FacebookSdk;
+import com.facebook.appevents.AppEventsLogger;
+
 
 public class MainActivity extends Activity {
 
@@ -46,11 +49,30 @@ public class MainActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        //init facebook SDK
+        FacebookSdk.sdkInitialize(this);
+
         //init side drawer components
         initDrawerComponents();
 
         //setup searchview
        initSearchView();
+    }
+
+    @Override
+    protected void onResume(){
+        super.onResume();
+
+        //used by the facebook api Logs 'install' and 'app activate'
+        AppEventsLogger.activateApp(this);
+    }
+
+    @Override
+    protected void onPause(){
+        super.onPause();
+
+        //log 'deactive' by the facebook api
+        AppEventsLogger.deactivateApp(this);
     }
 
 
