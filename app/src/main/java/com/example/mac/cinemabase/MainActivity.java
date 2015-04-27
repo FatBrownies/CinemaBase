@@ -41,11 +41,22 @@ public class MainActivity extends Activity {
     private DrawerLayout mDrawerLayout;
     private boolean isSlideOpen;
 
+    //movie search
     private OMDBRequest searchMovie;
     private SearchView searchView;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
+        Log.d(TAG,"onCreate");
+
+        if(savedInstanceState != null){
+            Log.d(TAG,"key " + savedInstanceState.getInt("key",0));
+        } else {
+            Log.d(TAG,"saved is null");
+        }
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
@@ -60,7 +71,15 @@ public class MainActivity extends Activity {
     }
 
     @Override
+    public void onSaveInstanceState(Bundle savedInstance){
+        super.onSaveInstanceState(savedInstance);
+        Log.d(TAG,"onSavedInstanceState called");
+        savedInstance.putInt("key",1);
+    }
+
+    @Override
     protected void onResume(){
+        Log.d(TAG,"onResume");
         super.onResume();
 
         //used by the facebook api Logs 'install' and 'app activate'
@@ -69,6 +88,7 @@ public class MainActivity extends Activity {
 
     @Override
     protected void onPause(){
+        Log.d(TAG,"onPause");
         super.onPause();
 
         //log 'deactive' by the facebook api
@@ -155,6 +175,7 @@ public class MainActivity extends Activity {
         Intent intent = null;
         switch (pos){
             case SOCIAL:
+                facebookLogin();
                 break;
             case SETTINGS:
                 intent = new Intent(this, SettingsPage.class);
@@ -170,6 +191,13 @@ public class MainActivity extends Activity {
         if(intent != null){
             startActivity(intent);
         }
+    }
+
+    /**
+     * perform login with facebook
+     */
+    private void facebookLogin(){
+
     }
 
     //Extended ActionBarDrawer
