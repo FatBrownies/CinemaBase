@@ -15,7 +15,7 @@ TODO
 6) Facebook login
 
 Victor's Tasks
-3, 6
+6
 
 Daniel's Tasks
 1, 4
