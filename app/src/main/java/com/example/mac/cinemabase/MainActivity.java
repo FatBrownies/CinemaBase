@@ -23,9 +23,17 @@ import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.SearchView;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.facebook.AccessToken;
+import com.facebook.AccessTokenTracker;
+import com.facebook.CallbackManager;
+import com.facebook.FacebookCallback;
+import com.facebook.FacebookException;
 import com.facebook.FacebookSdk;
 import com.facebook.appevents.AppEventsLogger;
+import com.facebook.login.LoginResult;
+import com.facebook.login.widget.LoginButton;
 import com.firebase.client.Firebase;
 import com.firebase.client.ValueEventListener;
 
@@ -54,6 +62,12 @@ public class MainActivity extends Activity {
     private OMDBRequest searchMovie;
     private SearchView searchView;
 
+    //facebook login
+    private LoginButton mLoginButton;
+    private CallbackManager mCallbackManager;
+    private FacebookCallback<LoginResult> mCallback;
+    private AccessTokenTracker mAccessTokenTracker;
+
     // TODO: change this to your own Firebase URL
     private static final String FIREBASE_URL = "https://android-chat.firebaseio-demo.com";
 
@@ -67,17 +81,65 @@ public class MainActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        //init facebook SDK
-        FacebookSdk.sdkInitialize(this);
-
         //init side drawer components
         initDrawerComponents();
 
         //setup searchview
-       initSearchView();
+        initSearchView();
 
-       initFireBase();
+        //setup facebook components
+        initFacebook();
+
+        //init Firebase
+        initFireBase();
     }
+
+    //initialize facebook api components
+    private void initFacebook(){
+        FacebookSdk.sdkInitialize(this);
+
+        mCallbackManager = CallbackManager.Factory.create();
+
+        mLoginButton = new LoginButton(this);
+        mLoginButton.setReadPermissions("user_friends");
+
+        //setup call back for login attempt
+        mCallback = new FacebookCallback<LoginResult>() {
+            @Override
+            public void onSuccess(LoginResult loginResult) {
+                Toast.makeText(MainActivity.this,"Login Succesfull", Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onCancel() {
+                Toast.makeText(MainActivity.this, "Login Cancelled", Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onError(FacebookException e) {
+                Toast.makeText(MainActivity.this, "Login Error", Toast.LENGTH_SHORT).show();
+            }
+        };
+
+        mLoginButton.registerCallback(mCallbackManager, mCallback);
+
+        //listens for access token changes.
+        mAccessTokenTracker = new AccessTokenTracker() {
+            @Override
+            protected void onCurrentAccessTokenChanged(AccessToken oldToken, AccessToken newToken) {
+
+            }
+        };
+
+        mAccessTokenTracker.startTracking();
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data){
+        super.onActivityResult(requestCode,resultCode,data);
+        mCallbackManager.onActivityResult(requestCode,resultCode,data);
+    }
+
 
     public void initFireBase(){
         // Make sure we have a mUsername
@@ -156,6 +218,10 @@ public class MainActivity extends Activity {
         AppEventsLogger.deactivateApp(this);
     }
 
+    @Override
+    protected void onStop(){
+        mAccessTokenTracker.stopTracking();
+    }
 
     /**
      * setup listener for searchview
@@ -184,7 +250,7 @@ public class MainActivity extends Activity {
 
     //handle movie query
     private void movieSearch(String movie){
-        if(movie.length() == 0 || movie == null){
+        if( movie == null || movie.length() == 0){
             Log.d(TAG,"Movie title query was empty");
             return;
         }
@@ -202,7 +268,6 @@ public class MainActivity extends Activity {
         mDrawerLayout = (DrawerLayout)findViewById(R.id.drawer_layout);
         mDrawerToggle = new CustomActionBarDrawerToggle(this,mDrawerLayout);
         mDrawerLayout.setDrawerListener(mDrawerToggle);
-
         //custom shadow which overlays the main content when the drawer opens
         mDrawerLayout.setDrawerShadow(R.drawable.drawer_shadow, GravityCompat.START);
 
@@ -224,6 +289,7 @@ public class MainActivity extends Activity {
         @Override
         public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
             Log.d(TAG,"Selected " + position);
+            clickDrawerListener(null); //close drawer
             selected(position);
         }
     }
@@ -236,7 +302,7 @@ public class MainActivity extends Activity {
         Intent intent = null;
         switch (pos){
             case SOCIAL:
-                facebookLogin();
+                mLoginButton.performClick();
                 break;
             case SETTINGS:
                 intent = new Intent(this, SettingsPage.class);
@@ -254,12 +320,6 @@ public class MainActivity extends Activity {
         }
     }
 
-    /**
-     * perform login with facebook
-     */
-    private void facebookLogin(){
-
-    }
 
     //Extended ActionBarDrawer
     private class CustomActionBarDrawerToggle extends ActionBarDrawerToggle{
