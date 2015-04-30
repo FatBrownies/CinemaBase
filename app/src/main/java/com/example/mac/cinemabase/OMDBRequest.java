@@ -3,6 +3,7 @@ package com.example.mac.cinemabase;
 import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
@@ -52,6 +53,10 @@ public class OMDBRequest {
         String url = constructURL();
         final JSONObject jsObj = new JSONObject();
 
+        final ProgressDialog mProgressDialog = new ProgressDialog(context);
+        mProgressDialog.setMessage("Searching for movie...");
+        mProgressDialog.show();
+
         jsObjRequest = new JsonObjectRequest(Request.Method.GET,
                 url, jsObj,
                 new Response.Listener<JSONObject>(){
@@ -61,6 +66,7 @@ public class OMDBRequest {
                         Log.d(TAG, "json obj " + jsObj.toString());
                         Log.d(TAG, "RESPONSE: " + response);
                         parseObject(response);
+                        mProgressDialog.dismiss();
                     }
                 },
         new Response.ErrorListener(){
@@ -69,6 +75,7 @@ public class OMDBRequest {
                 Log.d(TAG, "Error " + error);
                 Log.d(TAG, "Network Response: " + error.networkResponse.statusCode);
                 Log.d(TAG, "Localized Message: " + error.networkResponse.data.toString());
+                mProgressDialog.dismiss();
             }
         });
 
