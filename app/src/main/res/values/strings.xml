@@ -37,7 +37,7 @@
     <string name="drawer_open">Open navigation drawer</string>
     <string name="drawer_close">Close navigation drawer</string>
     <!--Strings for settings page-->
-    <string name="title_activity_settings_page">SettingsPage</string>
+    <string name="title_activity_help_page">HelpPage</string>
  <!--   <string name="switch_database">SwitchMovieDatabase</string>-->
     <string name="iconDrawer">Open Side Drawer</string>
 <!-- TODO: Remove or change this placeholder text -->

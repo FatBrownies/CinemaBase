@@ -42,10 +42,10 @@
 
         </activity>
 
-        <!--Settings page-->
+        <!--Help page-->
         <activity
-            android:name=".SettingsPage"
-            android:label="@string/title_activity_settings_page"
+            android:name=".HelpPage"
+            android:label="@string/title_activity_help_page"
             android:parentActivityName=".MainActivity"
             android:screenOrientation="landscape" >
             <meta-data

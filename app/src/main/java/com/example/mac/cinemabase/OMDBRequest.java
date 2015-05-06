@@ -19,9 +19,6 @@ import com.android.volley.toolbox.Volley;
 
 import org.json.JSONObject;
 
-/**
- * Created by Victor on 4/20/2015.
- */
 public class OMDBRequest {
 
     private final String TAG = "MyTag";
@@ -30,7 +27,6 @@ public class OMDBRequest {
     private final String SERVER_URL = "http://www.omdbapi.com/?";
     private final String PLOT_LENGTH = "full";//for short plot replace with "short"
     private final String RESPONSE_TYPE = "json";
-
     private String movieTitle;
     private RequestQueue queue;
     private JsonObjectRequest jsObjRequest;
