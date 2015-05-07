@@ -5,6 +5,7 @@ import android.app.ListActivity;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
+import android.database.DataSetObserver;
 import android.support.v4.view.GravityCompat;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v4.widget.DrawerLayout;
@@ -216,6 +217,8 @@ public class MainActivity extends ListActivity {
     protected void onStop(){
         super.onStop();
         mAccessTokenTracker.stopTracking();
+        mFirebaseRef.getRoot().child(".info/connected").removeEventListener(mConnectedListener);
+        mChatListAdapter.cleanup();
     }
 
     /**
@@ -358,6 +361,7 @@ public class MainActivity extends ListActivity {
         return true;
     }
 
+
     /**
      * When using the ActionBarDrawerToggle, you must call it during
      * onPostCreate() and onConfigurationChanged()...
@@ -374,4 +378,40 @@ public class MainActivity extends ListActivity {
         // Pass any configuration change to the drawer toggls
         mDrawerToggle.onConfigurationChanged(newConfig);
     }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        // Setup our view and list adapter. Ensure it scrolls to the bottom as data changes
+        final ListView listView = getListView();
+        // Tell our list adapter that we only want 50 messages at a time
+        mChatListAdapter = new ChatListAdapter(mFirebaseRef.limit(50), this, R.layout.chat_message, mUsername);
+        listView.setAdapter(mChatListAdapter);
+        mChatListAdapter.registerDataSetObserver(new DataSetObserver() {
+            @Override
+            public void onChanged() {
+                super.onChanged();
+                listView.setSelection(mChatListAdapter.getCount() - 1);
+            }
+        });
+
+        // Finally, a little indication of connection status
+        mConnectedListener = mFirebaseRef.getRoot().child(".info/connected").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                boolean connected = (Boolean) dataSnapshot.getValue();
+                if (connected) {
+                    Toast.makeText(MainActivity.this, "Connected to Firebase", Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(MainActivity.this, "Disconnected from Firebase", Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onCancelled(FirebaseError firebaseError) {
+                // No-op
+            }
+        });
+    }
+
 }
