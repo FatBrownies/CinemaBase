@@ -1,8 +1,7 @@
 package com.example.mac.cinemabase;
 
 /**
- * @author greg
- * @since 6/21/13
+ * Setters and getters for the Firebased chat
  */
 public class Chat {
 

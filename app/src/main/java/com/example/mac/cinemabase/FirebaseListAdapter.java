@@ -18,9 +18,6 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * @author greg
- * @since 6/21/13
- *
  * This class is a generic way of backing an Android ListView with a Firebase location.
  * It handles all of the child events at the given Firebase location. It marshals received data into the given
  * class type. Extend this class and provide an implementation of <code>populateView</code>, which will be given an
@@ -133,6 +130,10 @@ public abstract class FirebaseListAdapter<T> extends BaseAdapter {
             @Override
             public void onCancelled(FirebaseError firebaseError) {
                 Log.e("FirebaseListAdapter", "Listen was cancelled, no more updates will occur");
+                Log.d("myapp", "Firebase obj" + firebaseError.getMessage());
+                Log.d("myapp","Firebase obj"+firebaseError.getDetails());
+                Log.d("myapp","Firebase obj"+firebaseError.toString());
+                Log.d("myapp","Firebase obj"+firebaseError.getCode());
             }
 
         });

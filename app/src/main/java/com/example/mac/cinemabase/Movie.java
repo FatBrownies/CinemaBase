@@ -10,7 +10,6 @@ import org.json.JSONObject;
 import java.net.URL;
 
 /**
- * Created by Victor on 4/20/2015.
  * class implements Parcelable to be able to pass objects between activities
  */
 public class Movie implements Parcelable {
