@@ -79,12 +79,27 @@ public class MainActivity extends ListActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        //init side drawer components
+        initDrawerComponents();
+
+        //setup searchview
+        initSearchView();
+
+        //setup facebook components
+        initFacebook();
+
+        //setup firebase
+        initFirebase();
+    }
+
+    private void initFirebase(){
         Firebase.setAndroidContext(this);
 
         // Make sure we have a mUsername
         setupUsername();
 
-        setTitle("Chatting as " + mUsername);
+        //setTitle("Chatting as " + mUsername);
 
         // Setup our Firebase mFirebaseRef
         mFirebaseRef = new Firebase(FIREBASE_URL).child("chat");
@@ -108,15 +123,6 @@ public class MainActivity extends ListActivity {
             }
         });
 
-
-        //init side drawer components
-        initDrawerComponents();
-
-        //setup searchview
-        initSearchView();
-
-        //setup facebook components
-        initFacebook();
     }
 
     private void sendMessage() {
