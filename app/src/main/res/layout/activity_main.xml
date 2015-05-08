@@ -21,17 +21,7 @@
             android:id="@+id/iconDrawerLayout"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginRight="4dp">
-            <ImageView
-                android:id="@+id/drawerIcon"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/ic_drawer"
-                android:contentDescription="@string/iconDrawer"
-                android:clickable="true"
-                android:onClick="clickDrawerListener"
-                />
-        </FrameLayout>
+            android:layout_marginRight="4dp"></FrameLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -39,20 +29,52 @@
             android:layout_weight="2"
             android:layout_marginRight="7dp"
             android:orientation="vertical">
-            <android.widget.SearchView
-                android:id="@+id/searchBar"
-                android:queryHint="@string/search_hint"
-                android:tag="Movie Search"
+
+            <LinearLayout
+                android:orientation="horizontal"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@color/button_material_light"   >
-            </android.widget.SearchView>
+                android:layout_height="74dp"
+                android:layout_weight="1">
+
+                <ImageView
+                    android:id="@+id/drawerIcon"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:src="@drawable/ic_drawer"
+                    android:contentDescription="@string/iconDrawer"
+                    android:clickable="true"
+                    android:onClick="clickDrawerListener"
+                    android:background="@mipmap/movie_reel_converted"
+                    android:layout_weight="1" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:textAllCaps="true"
+                    android:textColor="@color/primary_dark_material_dark"
+                    android:textStyle="bold"
+                    android:text="Browse Movie Database"
+                    android:id="@+id/imageView"
+                    android:background="@mipmap/movie_reel_converted"
+                    android:layout_weight="1" />
+
+                <android.widget.SearchView
+                    android:id="@+id/searchBar"
+                    android:queryHint="Enter Movie Title"
+                    android:tag="Movie Search"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@mipmap/movie_reel_converted"
+                    android:layout_weight="1">
+                </android.widget.SearchView>
+            </LinearLayout>
 
             <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
                 xmlns:tools="http://schemas.android.com/tools"
-                android:layout_width="match_parent"
+                android:layout_width="360dp"
                 android:layout_height="match_parent"
-                tools:context=".MainActivity">
+                tools:context=".MainActivity"
+                android:layout_weight="1">
 
                 <ListView
                     android:id="@android:id/list"
