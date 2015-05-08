@@ -140,12 +140,12 @@ public class MainActivity extends ListActivity {
 
     private void setupUsername() {
         SharedPreferences prefs = getApplication().getSharedPreferences("ChatPrefs", 0);
-        mUsername = prefs.getString("username", null);
+        mUsername = prefs.getString("Review", null);
         if (mUsername == null) {
             Random r = new Random();
             // Assign a random user name if we don't have one saved.
-            mUsername = "User" + r.nextInt(100000);
-            prefs.edit().putString("username", mUsername).commit();
+            mUsername = "Review" + r.nextInt(100000);
+            prefs.edit().putString("Review", mUsername).commit();
         }
     }
 
@@ -167,12 +167,12 @@ public class MainActivity extends ListActivity {
 
             @Override
             public void onCancel() {
-                Toast.makeText(MainActivity.this, "Connection Cancelled", Toast.LENGTH_SHORT).show();
+                Toast.makeText(MainActivity.this, "Facebook connection cancelled!", Toast.LENGTH_SHORT).show();
             }
 
             @Override
             public void onError(FacebookException e) {
-                Toast.makeText(MainActivity.this, "Connection Error", Toast.LENGTH_SHORT).show();
+                Toast.makeText(MainActivity.this, "Connection error!", Toast.LENGTH_SHORT).show();
             }
         };
 
@@ -310,8 +310,6 @@ public class MainActivity extends ListActivity {
                 mLoginButton.performClick();
                 break;
             case SETTINGS:
-                break;
-            case HELP:
                 intent = new Intent(this, HelpPage.class);
                 break;
             case LOGOUT:
@@ -409,7 +407,7 @@ public class MainActivity extends ListActivity {
                 boolean connected = (Boolean) dataSnapshot.getValue();
                 if (connected) {
                     //Toast.makeText(MainActivity.this, "Connected to Firebase", Toast.LENGTH_SHORT).show();
-                    Toast.makeText(MainActivity.this, "Connection success! start reviewing movie.", Toast.LENGTH_LONG).show();
+                    Toast.makeText(MainActivity.this, "Connection success! Start a movie review.", Toast.LENGTH_LONG).show();
                 } else {
                     //Toast.makeText(MainActivity.this, "Disconnected from Firebase", Toast.LENGTH_SHORT).show();
                     Toast.makeText(MainActivity.this, "Connecting to movie review service...", Toast.LENGTH_LONG).show();

@@ -14,8 +14,8 @@
     <string name="plotLabel">Plot: </string>
 
     <string-array name="drawerTitles">
-        <item>Social</item>
-        <item>Settings</item>
+        <item>Facebook connection</item>
+        <!--<item>Settings</item>-->
         <item>Support</item>
         <item>Logout</item>
     </string-array>
