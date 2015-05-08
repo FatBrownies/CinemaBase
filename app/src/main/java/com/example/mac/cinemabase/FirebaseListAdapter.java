@@ -130,10 +130,6 @@ public abstract class FirebaseListAdapter<T> extends BaseAdapter {
             @Override
             public void onCancelled(FirebaseError firebaseError) {
                 Log.e("FirebaseListAdapter", "Listen was cancelled, no more updates will occur");
-                Log.d("myapp", "Firebase obj" + firebaseError.getMessage());
-                Log.d("myapp","Firebase obj"+firebaseError.getDetails());
-                Log.d("myapp","Firebase obj"+firebaseError.toString());
-                Log.d("myapp","Firebase obj"+firebaseError.getCode());
             }
 
         });

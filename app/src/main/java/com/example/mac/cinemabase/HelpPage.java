@@ -19,31 +19,14 @@ public class HelpPage extends ActionBarActivity {
     }
 
     public void initHelp(){
-        final Button login = (Button) findViewById(R.id.social_login_button);
+        final Button login = (Button) findViewById(R.id.support_button);
         login.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 // Perform action on click
-                Toast toast = Toast.makeText(getApplicationContext(),"logging to facebook",Toast.LENGTH_SHORT);
+                Toast toast = Toast.makeText(getApplicationContext(),"Submit trouble ticket",Toast.LENGTH_SHORT);
                 toast.show();
             }
         });
 
-        final Button logout = (Button) findViewById(R.id.social_logout_button);
-        logout.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                // Perform action on click
-                Toast toast = Toast.makeText(getApplicationContext(),"logging out of facebook",Toast.LENGTH_SHORT);
-                toast.show();
-            }
-        });
-
-        final Button movieDB = (Button) findViewById(R.id.movie_data_base);
-        movieDB.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                // Perform action on click
-                Toast toast = Toast.makeText(getApplicationContext(),"data base X",Toast.LENGTH_SHORT);
-                toast.show();
-            }
-        });
     }
 }

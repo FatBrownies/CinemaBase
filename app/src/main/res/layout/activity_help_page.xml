@@ -6,46 +6,33 @@
     android:paddingBottom="@dimen/activity_vertical_margin"
     android:background="@color/background_floating_material_dark"
     tools:context="com.example.mac.cinemabase.HelpPage">
+
     <LinearLayout
+        android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-    <Button
-        android:id="@+id/social_login_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:padding="@dimen/abc_text_size_button_material"
-        android:background="@color/button_material_light"
-        android:text="button"
-        android:layout_centerHorizontal="true"/>
+        android:layout_height="match_parent">
 
-    <Button
-        android:id="@+id/social_logout_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:padding="@dimen/abc_text_size_button_material"
-        android:background="@color/button_material_light"
-        android:layout_alignParentRight="true"
-        android:text="button"/>
-
-    <Button
-        android:id="@+id/movie_data_base"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:padding="@dimen/abc_text_size_button_material"
-        android:background="@color/button_material_light"
-        android:layout_alignParentLeft="true"
-        android:text="button"/>
-</LinearLayout>
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:textSize="@dimen/abc_text_size_large_material"
         android:text="Movie Rating App: v 0.1\n
         Team: FatBrownies\n
         Developers: Daniel Hernandez, Victor Romero\n
         Github: https://github.com/FatBrownies/CinemaBase\n"
         android:textColorHighlight="#FFF"
         android:textColor="#FFF"
+        android:layout_centerVertical="true"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_marginTop="52dp" />
+        android:layout_alignParentStart="true" />
+
+    <Button
+        android:id="@+id/support_button"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/abc_text_size_button_material"
+        android:background="@color/button_material_light"
+        android:text="Support"
+        android:layout_centerHorizontal="true"/>
+    </LinearLayout>
 </RelativeLayout>
