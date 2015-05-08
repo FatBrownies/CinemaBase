@@ -53,15 +53,16 @@
                     android:textAllCaps="true"
                     android:textColor="@color/primary_dark_material_dark"
                     android:textStyle="bold"
-                    android:text="Browse Movie Database"
+                    android:textSize="@dimen/abc_text_size_large_material"
+                    android:text="Browse Movie Titles"
                     android:id="@+id/imageView"
                     android:background="@mipmap/movie_reel_converted"
+                    android:gravity="center"
                     android:layout_weight="1" />
 
                 <android.widget.SearchView
                     android:id="@+id/searchBar"
                     android:queryHint="Enter Movie Title"
-                    android:tag="Movie Search"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:background="@mipmap/movie_reel_converted"

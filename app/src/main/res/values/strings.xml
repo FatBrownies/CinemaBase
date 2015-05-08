@@ -13,36 +13,19 @@
     <string name="genreLabel">Genre: </string>
     <string name="plotLabel">Plot: </string>
 
-    <string-array name="review">
-        <item>Movie Data Base [top 5]</item>
-        <item>Movie Data Base [top 5]</item>
-        <item>Movie Data Base [top 5]</item>
-        <item>Movie Data Base [top 5]</item>
-        <item>Movie Data Base [top 5]</item>
-    </string-array>
-    <string-array name="db">
-        <item>Movie Reviewed [Stars given]: Text Review </item>
-        <item>Movie Reviewed [Stars given]: Text Review </item>
-        <item>Movie Reviewed [Stars given]: Text Review </item>
-        <item>Movie Reviewed [Stars given]: Text Review </item>
-    </string-array>
     <string-array name="drawerTitles">
         <item>Social</item>
         <item>Settings</item>
-        <item>Help</item>
+        <item>Support</item>
         <item>Logout</item>
     </string-array>
 
-
+    <!--Strings for drawer items-->
     <string name="drawer_open">Open navigation drawer</string>
     <string name="drawer_close">Close navigation drawer</string>
-    <!--Strings for settings page-->
-    <string name="title_activity_help_page">HelpPage</string>
- <!--   <string name="switch_database">SwitchMovieDatabase</string>-->
+    <string name="title_activity_help_page">Support &amp; Developer Information</string>
     <string name="iconDrawer">Open Side Drawer</string>
     <string name="search_hint">Movie Search</string>
     <string name="title_activity_requested_movie">RequestedMovie</string>
-
-    <string name="hello_world">Hello world!</string>
 
 </resources>

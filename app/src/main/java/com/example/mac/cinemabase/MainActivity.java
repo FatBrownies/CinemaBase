@@ -1,5 +1,6 @@
 package com.example.mac.cinemabase;
 
+import java.util.Random;
 import android.app.Activity;
 import android.app.ListActivity;
 import android.content.Intent;
@@ -140,12 +141,12 @@ public class MainActivity extends ListActivity {
     private void setupUsername() {
         SharedPreferences prefs = getApplication().getSharedPreferences("ChatPrefs", 0);
         mUsername = prefs.getString("username", null);
-        /*if (mUsername == null) {
+        if (mUsername == null) {
             Random r = new Random();
             // Assign a random user name if we don't have one saved.
-            mUsername = "JavaUser" + r.nextInt(100000);
+            mUsername = "User" + r.nextInt(100000);
             prefs.edit().putString("username", mUsername).commit();
-        }*/
+        }
     }
 
     //initialize facebook api components
@@ -161,17 +162,17 @@ public class MainActivity extends ListActivity {
         mCallback = new FacebookCallback<LoginResult>() {
             @Override
             public void onSuccess(LoginResult loginResult) {
-                Toast.makeText(MainActivity.this,"Login Succesfull", Toast.LENGTH_SHORT).show();
+                Toast.makeText(MainActivity.this,"Connected to Facebook", Toast.LENGTH_SHORT).show();
             }
 
             @Override
             public void onCancel() {
-                Toast.makeText(MainActivity.this, "Login Cancelled", Toast.LENGTH_SHORT).show();
+                Toast.makeText(MainActivity.this, "Connection Cancelled", Toast.LENGTH_SHORT).show();
             }
 
             @Override
             public void onError(FacebookException e) {
-                Toast.makeText(MainActivity.this, "Login Error", Toast.LENGTH_SHORT).show();
+                Toast.makeText(MainActivity.this, "Connection Error", Toast.LENGTH_SHORT).show();
             }
         };
 
@@ -407,9 +408,11 @@ public class MainActivity extends ListActivity {
             public void onDataChange(DataSnapshot dataSnapshot) {
                 boolean connected = (Boolean) dataSnapshot.getValue();
                 if (connected) {
-                    Toast.makeText(MainActivity.this, "Connected to Firebase", Toast.LENGTH_SHORT).show();
+                    //Toast.makeText(MainActivity.this, "Connected to Firebase", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(MainActivity.this, "Connection success! start reviewing movie.", Toast.LENGTH_LONG).show();
                 } else {
-                    Toast.makeText(MainActivity.this, "Disconnected from Firebase", Toast.LENGTH_SHORT).show();
+                    //Toast.makeText(MainActivity.this, "Disconnected from Firebase", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(MainActivity.this, "Connecting to movie review service...", Toast.LENGTH_LONG).show();
                 }
             }
 
