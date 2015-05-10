@@ -1,9 +1,5 @@
 package com.example.mac.cinemabase;
 
-/**
- * Created by Victor on 4/21/2015.
- */
-
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.util.LruCache;

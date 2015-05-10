@@ -52,8 +52,6 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.example.mac.cinemabase.MainActivity" />
         </activity>
-
-
     </application>
 
 </manifest>
