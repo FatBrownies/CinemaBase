@@ -1,22 +1,11 @@
 # CinemaBase
-using open source api build a movie rating app
-# Backend
-open source movie api
+Using open source api's, build a movie rating app with live review capabities.
+# Open Movie Database
+Movie database used to search titles.
 http://www.omdbapi.com/
-top 5
+# The Movie Database
+Top 5 movie list.
 https://www.themoviedb.org/
-live reviews
+# Firebase
+Live reviews host.
 https://www.firebase.com/
-
-
-TODO
-1) Tabbed windows for top 5 movies
-2) Firebase setup
-3) Populate top 5 movie list from omdb
-4) Redesign app UI
-
-Victor's Tasks
-4
-
-Daniel's Tasks
-3
