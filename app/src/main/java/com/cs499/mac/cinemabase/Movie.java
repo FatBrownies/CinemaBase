@@ -1,4 +1,4 @@
-package com.example.mac.cinemabase;
+package com.cs499.mac.cinemabase;
 
 import android.os.Parcel;
 import android.os.Parcelable;
@@ -6,8 +6,6 @@ import android.util.Log;
 
 import org.json.JSONException;
 import org.json.JSONObject;
-
-import java.net.URL;
 
 /**
  * class implements Parcelable to be able to pass objects between activities

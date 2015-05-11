@@ -1,12 +1,8 @@
-package com.example.mac.cinemabase;
+package com.cs499.mac.cinemabase;
 
-import android.app.Fragment;
-import android.app.FragmentManager;
-import android.app.FragmentTransaction;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
-import android.net.Uri;
 import android.util.Log;
 import android.widget.Toast;
 
