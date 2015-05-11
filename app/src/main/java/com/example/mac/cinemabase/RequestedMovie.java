@@ -65,7 +65,4 @@ public class RequestedMovie extends Activity {
         getMenuInflater().inflate(R.menu.menu_requested_movie, menu);
         return true;
     }
-
-
-
 }

@@ -28,12 +28,17 @@
     <string name="title_activity_requested_movie">RequestedMovie</string>
 
     <!--Temp list-->
-    <string-array name="topFive">
-        <item>Top Rated Movie</item>
-        <item>Rated Movie #2</item>
-        <item>Rated Movie #3</item>
-        <item>Rated Movie #4</item>
-        <item>Rated Movie #5</item>
+    <string-array name="topMovies">
+        <item>Avengers: Age of Ultron (2015)</item>
+        <item>Hot Pursuit (2015)</item>
+        <item>The Age of Adaline (2015)</item>
+        <item>Furious Seven (2015)</item>
+        <item>Paul Blart: Mall Cop 2 (2015)</item>
+        <item>Ex Machina (2015)</item>
+        <item>Home (2015)</item>
+        <item></item>
+        <item></item>
+
     </string-array>
 
 </resources>
