@@ -1,6 +1,14 @@
 apply plugin: 'com.android.application'
 
 android {
+    signingConfigs {
+        config {
+            keyAlias 'CinemaBaseKey'
+            keyPassword 'FatBrownies'
+            storeFile file('C:/Users/Victor/.android/fatBrownies.jks')
+            storePassword 'FatBrownies'
+        }
+    }
     compileSdkVersion 21
     buildToolsVersion "21.1.2"
     packagingOptions {
@@ -24,6 +32,7 @@ android {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.config
         }
     }
 }
@@ -34,13 +43,10 @@ repositories {mavenCentral()}
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
     compile 'com.android.support:appcompat-v7:22.0.0'
-
     //Volley library used for network connection
     compile 'com.mcxiaoke.volley:library:1.0.+@aar'
-
     //Facebook library
     compile 'com.facebook.android:facebook-android-sdk:4.0.0'
-
     //Firebase library
     compile 'com.firebase:firebase-client-android:2.2.3+'
 }
