@@ -76,7 +76,12 @@ public class Movie implements Parcelable {
             rating = jsObj.getString("imdbRating");
             runtime = jsObj.getString("Runtime");
             genre = jsObj.getString("Genre");
-            genre = genre.substring(0,genre.indexOf(','));
+
+            //if movie has multiple genre's we only use the first one
+            int indexOfGenre = genre.indexOf(',');
+            if(indexOfGenre != -1) {
+                genre = genre.substring(0, genre.indexOf(','));
+            }
             Log.d(TAG,genre);
             plot = jsObj.getString("Plot");
             awards = jsObj.getString("Awards");

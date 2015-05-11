@@ -89,6 +89,7 @@ public class OMDBRequest {
         if(!validMovie){
             Log.d(TAG, "Invalid movie");
             Toast.makeText(context,"Movie was not found",Toast.LENGTH_SHORT).show();
+            return;
         }
 
         Log.d(TAG, "Initializing movie activity");

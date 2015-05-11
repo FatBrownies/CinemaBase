@@ -56,8 +56,7 @@
             android:orientation="vertical">
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
+                android:layout_height="wrap_content"
                 android:orientation="horizontal">
 
                 <TextView
@@ -77,8 +76,8 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:paddingTop="10dp"
                 android:orientation="horizontal">
 
                 <TextView
@@ -90,7 +89,7 @@
 
                 <TextView
                     android:id="@+id/movieGenre"
-                    android:layout_height="match_parent"
+                    android:layout_height="wrap_content"
                     android:layout_width="match_parent"
                     android:layout_weight="1"
                     android:text="@string/genreLabel"/>
