@@ -19,18 +19,21 @@
 
         <FrameLayout
             android:id="@+id/iconDrawerLayout"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginRight="4dp"></FrameLayout>
+            android:layout_marginRight="4dp"
+            android:layout_weight="1"></FrameLayout>
 
         <LinearLayout
-            android:layout_width="match_parent"
+            android:layout_width="346dp"
             android:layout_height="match_parent"
-            android:layout_weight="2"
             android:layout_marginRight="7dp"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:layout_weight="3.59"
+            android:id="@+id/reviewWindow">
 
             <LinearLayout
+                android:id="@+id/title_bar"
                 android:orientation="horizontal"
                 android:layout_width="match_parent"
                 android:layout_height="74dp"
@@ -38,7 +41,7 @@
 
                 <ImageView
                     android:id="@+id/drawerIcon"
-                    android:layout_width="0dp"
+                    android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:src="@drawable/ic_drawer"
                     android:contentDescription="@string/iconDrawer"
@@ -54,11 +57,10 @@
                     android:textColor="@color/primary_dark_material_dark"
                     android:textStyle="bold"
                     android:textSize="@dimen/abc_text_size_large_material"
-                    android:text="Browse Movie Titles"
+                    android:text="Browse Titles"
                     android:id="@+id/imageView"
                     android:background="@mipmap/movie_reel_converted"
-                    android:gravity="center"
-                    android:layout_weight="1" />
+                    android:gravity="center" />
 
                 <android.widget.SearchView
                     android:id="@+id/searchBar"
@@ -79,7 +81,7 @@
 
                 <ListView
                     android:id="@android:id/list"
-                    android:layout_width="fill_parent"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_above="@+id/listFooter"
                     android:layout_alignParentTop="true"
@@ -113,6 +115,17 @@
             </RelativeLayout>
         </LinearLayout>
 
+        <ListView
+            android:id="@+id/topFive"
+            android:layout_width="143dp"
+            android:layout_height="fill_parent"
+            android:layout_below="@+id/title_bar"
+            android:layout_alignParentTop="true"
+            android:transcriptMode="alwaysScroll"
+            android:layout_centerInParent="true"
+            android:entries="@array/topFive"
+            android:layout_weight="1" />
+
     </LinearLayout>
 
     <ListView
@@ -124,5 +137,5 @@
         android:divider="@android:color/transparent"
         android:dividerHeight="0dp"
         android:background="#111"/>
-<!--Made changes to layout -->
+
 </android.support.v4.widget.DrawerLayout>
