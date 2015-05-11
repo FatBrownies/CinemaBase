@@ -1,4 +1,4 @@
-package com.example.mac.cinemabase;
+package com.cs499.mac.cinemabase;
 
 /**
  * Setters and getters for the Firebased chat

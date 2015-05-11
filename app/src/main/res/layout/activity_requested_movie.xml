@@ -8,7 +8,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="horizontal"
-    tools:context="com.example.mac.cinemabase.RequestedMovie"
+    tools:context="com.cs499.mac.cinemabase.RequestedMovie"
     android:baselineAligned="false">
 
     <!--layout for the image and awards-->

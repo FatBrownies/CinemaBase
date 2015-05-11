@@ -1,4 +1,4 @@
-package com.example.mac.cinemabase;
+package com.cs499.mac.cinemabase;
 
 import java.util.Random;
 import android.app.Activity;

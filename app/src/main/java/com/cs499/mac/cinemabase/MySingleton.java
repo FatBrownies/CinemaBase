@@ -1,4 +1,4 @@
-package com.example.mac.cinemabase;
+package com.cs499.mac.cinemabase;
 
 import android.content.Context;
 import android.graphics.Bitmap;

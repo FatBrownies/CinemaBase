@@ -22,7 +22,7 @@ android {
         exclude 'META-INF/ASL2.0'
     }
     defaultConfig {
-        applicationId "com.example.mac.cinemabase"
+        applicationId "com.cs499.mac.cinemabase"
         minSdkVersion 15
         targetSdkVersion 21
         versionCode 1

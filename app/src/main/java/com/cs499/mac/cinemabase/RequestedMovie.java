@@ -1,4 +1,4 @@
-package com.example.mac.cinemabase;
+package com.cs499.mac.cinemabase;
 
 import android.app.Activity;
 import android.os.Bundle;
