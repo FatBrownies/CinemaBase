@@ -106,14 +106,14 @@
         </LinearLayout>
 
         <ListView
-            android:id="@+id/topFive"
+            android:id="@+id/topMoviesListView"
             android:layout_width="143dp"
             android:layout_height="fill_parent"
             android:layout_below="@+id/title_bar"
             android:layout_alignParentTop="true"
             android:transcriptMode="alwaysScroll"
             android:layout_centerInParent="true"
-            android:entries="@array/topFive"
+            android:entries="@array/topMovies"
             android:layout_weight="1" />
 
     </LinearLayout>

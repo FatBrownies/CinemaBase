@@ -27,25 +27,28 @@ public class OMDBRequest {
     private RequestQueue queue;
     private JsonObjectRequest jsObjRequest;
 
+    public OMDBRequest(){}
+
     /**
      * Constructor for ombd request.
      * @param context from main activity
      */
     public OMDBRequest(Context context){
         this.context  = context;
-        queue = Volley.newRequestQueue(context);
+        queue = MySingleton.getInstance(context).getRequestQueue();
         movieTitle = "";
     }
-
     /**
      * @param title of movie being searched
      */
     public void requestMovie(String title){
+        Log.d(TAG, "requesting title " + title);
         movieTitle = title;
         String url = constructURL();
         final JSONObject jsObj = new JSONObject();
 
         final ProgressDialog mProgressDialog = new ProgressDialog(context);
+        //only show progress dialog if we will display movie activity
         mProgressDialog.setMessage("Searching for movie...");
         mProgressDialog.show();
 
@@ -89,10 +92,14 @@ public class OMDBRequest {
         }
 
         Log.d(TAG, "Initializing movie activity");
-        Intent intent = new Intent(context,RequestedMovie.class);
-        intent.putExtra("movie",movie);
+        Intent intent = new Intent(context, RequestedMovie.class);
+        intent.putExtra("movie", movie);
         context.startActivity(intent);
+    }
 
+    public String constructURL(String query){
+        movieTitle = query;
+        return constructURL();
     }
 
     private String constructURL(){

@@ -29,16 +29,13 @@
 
     <!--Temp list-->
     <string-array name="topMovies">
-        <item>Avengers: Age of Ultron (2015)</item>
-        <item>Hot Pursuit (2015)</item>
-        <item>The Age of Adaline (2015)</item>
-        <item>Furious Seven (2015)</item>
-        <item>Paul Blart: Mall Cop 2 (2015)</item>
-        <item>Ex Machina (2015)</item>
-        <item>Home (2015)</item>
-        <item></item>
-        <item></item>
-
+        <item>Avengers: Age of Ultron</item>
+        <item>Hot Pursuit</item>
+        <item>The Age of Adaline</item>
+        <item>Furious Seven</item>
+        <item>Paul Blart: Mall Cop 2</item>
+        <item>Ex Machina</item>
+        <item>Home</item>
     </string-array>
 
 </resources>

@@ -58,8 +58,10 @@ public class Movie implements Parcelable {
      */
     public boolean parse(){
         try {
-            if(jsObj == null)
+            if(jsObj == null) {
+                Log.d(TAG,"json object was null");
                 return false;
+            }
 
             //check if the query was successfull
             boolean result = jsObj.getBoolean("Response");
@@ -84,7 +86,7 @@ public class Movie implements Parcelable {
             awards = jsObj.getString("Awards");
             stringURL = jsObj.getString("Poster");
         } catch (JSONException e) {
-            Log.e(TAG,"json string parsing error");
+            Log.e(TAG,"json string parsing error " + e.getLocalizedMessage());
             return false;
         }
         return true;
@@ -144,16 +146,22 @@ public class Movie implements Parcelable {
     }
 
     public String getPlot() {
+        if(plot.equals("N/A"))
+            return "We have no plot for this movie... sorry";
+
         return plot;
     }
 
     public String getAwards() {
+        if(awards.equals("N/A"))
+            return "No Awards or Nominations";
         return awards;
     }
 
     public String getStringURL(){
         return stringURL;
     }
+
 
     public String toString(){
         return "Title: " + title + " Year: " + year +

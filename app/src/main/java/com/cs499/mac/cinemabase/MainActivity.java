@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.database.DataSetObserver;
+import android.os.Parcelable;
 import android.support.v4.view.GravityCompat;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v4.widget.DrawerLayout;
@@ -25,6 +26,11 @@ import android.widget.SearchView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.android.volley.Request;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.StringRequest;
 import com.facebook.AccessToken;
 import com.facebook.AccessTokenTracker;
 import com.facebook.CallbackManager;
@@ -40,11 +46,14 @@ import com.firebase.client.Firebase;
 import com.firebase.client.FirebaseError;
 import com.firebase.client.ValueEventListener;
 
+import org.json.JSONObject;
+
 public class MainActivity extends ListActivity {
 
     // TODO: change this to your own Firebase URL
     private static final String FIREBASE_URL = "https://flickering-torch-2608.firebaseio.com/";
 
+    //firebase chat components
     private String mUsername;
     private Firebase mFirebaseRef;
     private ValueEventListener mConnectedListener;
@@ -76,8 +85,16 @@ public class MainActivity extends ListActivity {
     private FacebookCallback<LoginResult> mCallback;
     private AccessTokenTracker mAccessTokenTracker;
 
+    //top movies components
+    private ListView topMoviesList;
+    private String[] topMoviesNames;
+    private Movie[] topMoviesArray;
+    private TopMoviesListAdapter moviesListAdapter;
+    private final String SAVED_MOVIES = "SAVED_MOVIES_INSTANCE";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        Log.d(TAG, "main oncreate");
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
@@ -92,6 +109,16 @@ public class MainActivity extends ListActivity {
 
         //setup firebase
         initFirebase();
+
+        //setup top movies view
+        if(savedInstanceState != null && savedInstanceState.containsKey(SAVED_MOVIES)){
+            Parcelable parcelArray[] =savedInstanceState.getParcelableArray(SAVED_MOVIES);
+            topMoviesArray = new Movie[parcelArray.length];
+            for(int i = 0; i < parcelArray.length; ++i){
+                topMoviesArray[i] = (Movie) parcelArray[i];
+            }
+        }
+        initTopMoviesView();
     }
 
     private void initFirebase(){
@@ -182,7 +209,7 @@ public class MainActivity extends ListActivity {
         mAccessTokenTracker = new AccessTokenTracker() {
             @Override
             protected void onCurrentAccessTokenChanged(AccessToken oldToken, AccessToken newToken) {
-
+                Log.d(TAG,"access token changed");
             }
         };
 
@@ -191,15 +218,15 @@ public class MainActivity extends ListActivity {
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data){
-        super.onActivityResult(requestCode,resultCode,data);
-        mCallbackManager.onActivityResult(requestCode,resultCode,data);
+        super.onActivityResult(requestCode, resultCode, data);
+        mCallbackManager.onActivityResult(requestCode, resultCode, data);
     }
 
     @Override
     public void onSaveInstanceState(Bundle savedInstance){
         super.onSaveInstanceState(savedInstance);
-        Log.d(TAG,"onSavedInstanceState called");
-        savedInstance.putInt("key",1);
+        Log.d(TAG, "onSavedInstanceState called");
+        savedInstance.putParcelableArray(SAVED_MOVIES, topMoviesArray);
     }
 
     @Override
@@ -213,7 +240,7 @@ public class MainActivity extends ListActivity {
 
     @Override
     protected void onPause(){
-        Log.d(TAG,"onPause");
+        Log.d(TAG, "onPause");
         super.onPause();
 
         //log 'deactive' by the facebook api
@@ -222,6 +249,7 @@ public class MainActivity extends ListActivity {
 
     @Override
     protected void onStop(){
+        Log.d(TAG,"main onStop");
         super.onStop();
         mAccessTokenTracker.stopTracking();
         mFirebaseRef.getRoot().child(".info/connected").removeEventListener(mConnectedListener);
@@ -259,7 +287,7 @@ public class MainActivity extends ListActivity {
             Log.d(TAG,"Movie title query was empty");
             return;
         }
-        searchView.setQuery("",false);
+        searchView.setQuery("", false);
         searchMovie.requestMovie(movie);
     }
 
@@ -293,7 +321,7 @@ public class MainActivity extends ListActivity {
 
         @Override
         public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-            Log.d(TAG,"Selected " + position);
+            Log.d(TAG, "Selected " + position);
             clickDrawerListener(null); //close drawer
             selected(position);
         }
@@ -384,6 +412,7 @@ public class MainActivity extends ListActivity {
 
     @Override
     public void onStart() {
+        Log.d(TAG,"onStart");
         super.onStart();
         // Setup our view and list adapter. Ensure it scrolls to the bottom as data changes
         final ListView listView = getListView();
@@ -417,6 +446,63 @@ public class MainActivity extends ListActivity {
                 // No-op
             }
         });
+    }
+
+    //init components
+    private void initTopMoviesView(){
+        //this should be replaced by a dynamic call to a server
+        topMoviesNames = getResources().getStringArray(R.array.topMovies);
+
+        topMoviesList = (ListView)findViewById(R.id.topMoviesListView);
+
+        //top movies list view
+        if(topMoviesArray == null){
+            pullMoviesFromServer();
+        } else {
+            moviesListAdapter = new TopMoviesListAdapter(this,topMoviesArray);
+            topMoviesList.setAdapter(moviesListAdapter);
+        }
+    }
+
+    private void pullMoviesFromServer(){
+
+        topMoviesArray = new Movie[topMoviesNames.length];
+        moviesListAdapter = new TopMoviesListAdapter(this,topMoviesArray);
+        topMoviesList.setAdapter(moviesListAdapter);
+
+        String movieTitle;
+        for(int i = 0; i < topMoviesNames.length; ++i){
+            movieTitle = topMoviesNames[i];
+            if(movieTitle == null || movieTitle.length() < 1)
+                continue;
+            movieRequest(movieTitle,i);
+        }
+    }
+
+    private void movieRequest(String movieName, final int index){
+        String url = new OMDBRequest().constructURL(movieName);
+        final JSONObject jsObj = new JSONObject();
+        JsonObjectRequest jsObjReq = new JsonObjectRequest(Request.Method.GET,
+                url, jsObj,
+                new Response.Listener<JSONObject>(){
+
+                    @Override
+                    public void onResponse(JSONObject movieResponse){
+                        topMoviesArray[index] = new Movie(movieResponse);
+                        topMoviesArray[index].parse();
+                        moviesListAdapter.notifyDataSetChanged();
+                    }
+                },
+                new Response.ErrorListener(){
+                    @Override
+                    public void onErrorResponse(VolleyError error){
+                        Log.d(TAG, "Error " + error);
+                        Log.d(TAG, "Network Response: " + error.networkResponse.statusCode);
+                        Log.d(TAG, "Localized Message: " + error.networkResponse.data.toString());
+                    }
+                }
+        );
+        MySingleton.getInstance(this).addToRequestQueue(jsObjReq);
     }
 
 }
