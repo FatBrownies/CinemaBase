@@ -260,7 +260,7 @@ public class MainActivity extends ListActivity {
             return;
         }
         searchView.setQuery("",false);
-        searchMovie.requestMovie(movie);
+        searchMovie.requestMovie(movie, true);
     }
 
     /**
