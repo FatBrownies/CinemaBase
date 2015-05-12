@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.database.DataSetObserver;
+import android.nfc.Tag;
 import android.os.Parcelable;
 import android.support.v4.view.GravityCompat;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -433,11 +434,11 @@ public class MainActivity extends ListActivity {
             public void onDataChange(DataSnapshot dataSnapshot) {
                 boolean connected = (Boolean) dataSnapshot.getValue();
                 if (connected) {
-                    //Toast.makeText(MainActivity.this, "Connected to Firebase", Toast.LENGTH_SHORT).show();
-                    Toast.makeText(MainActivity.this, "Connection success! Start a movie review.", Toast.LENGTH_LONG).show();
+                    //Toast.makeText(MainActivity.this, "Connection success! Start a movie review.", Toast.LENGTH_LONG).show();
+                    Log.d(TAG,"Connected to Firebase");
                 } else {
-                    //Toast.makeText(MainActivity.this, "Disconnected from Firebase", Toast.LENGTH_SHORT).show();
-                    Toast.makeText(MainActivity.this, "Connecting to movie review service...", Toast.LENGTH_LONG).show();
+                    //Toast.makeText(MainActivity.this, "Connecting to movie review service...", Toast.LENGTH_LONG).show();
+                    Log.d(TAG,"Disconnected from Firebase");
                 }
             }
 

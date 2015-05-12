@@ -114,7 +114,10 @@
             android:transcriptMode="alwaysScroll"
             android:layout_centerInParent="true"
             android:entries="@array/topMovies"
-            android:layout_weight="1" />
+            android:layout_weight="1"/>
+<!--
+    Adding TabView for top five movie list
+-->
 
     </LinearLayout>
 
