@@ -1,14 +1,6 @@
 apply plugin: 'com.android.application'
 
 android {
-    signingConfigs {
-        config {
-            keyAlias 'CinemaBaseKey'
-            keyPassword 'FatBrownies'
-            storeFile file('C:/Users/Victor/.android/fatBrownies.jks')
-            storePassword 'FatBrownies'
-        }
-    }
     compileSdkVersion 21
     buildToolsVersion "21.1.2"
     packagingOptions {
