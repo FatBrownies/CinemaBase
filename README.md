@@ -4,9 +4,6 @@ https://play.google.com/store/apps/details?id=com.cs499.mac.cinemabase
 # Open Movie Database
 Movie database used to search titles.
 http://www.omdbapi.com/
-# The Movie Database
-Top 5 movie list.
-https://www.themoviedb.org/
 # Firebase
 Live reviews host.
 https://www.firebase.com/
