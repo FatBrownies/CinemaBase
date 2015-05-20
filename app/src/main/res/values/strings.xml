@@ -12,6 +12,7 @@
     <string name="timeLabel">Time: </string>
     <string name="genreLabel">Genre: </string>
     <string name="plotLabel">Plot: </string>
+    <string name="trailerLink">Trailer</string>
 
     <string-array name="drawerTitles">
         <item>Facebook connection</item>
@@ -40,5 +41,8 @@
         <item></item>
 
     </string-array>
+    <string name="title_activity_trailer">TrailerActivity</string>
+
+    <string name="hello_world">Hello world!</string>
 
 </resources>

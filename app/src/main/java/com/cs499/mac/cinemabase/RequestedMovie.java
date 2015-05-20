@@ -1,8 +1,11 @@
 package com.cs499.mac.cinemabase;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
+import android.view.View;
 import android.widget.TextView;
 
 import com.android.volley.toolbox.ImageLoader;
@@ -23,6 +26,7 @@ public class RequestedMovie extends Activity {
     private TextView timeTextView;
     private TextView genreTextView;
     private TextView plotTextView;
+    private TextView trailerTextView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,6 +39,7 @@ public class RequestedMovie extends Activity {
 
     private void initInstances(){
         movie = getIntent().getParcelableExtra("movie");
+
         moviePosterView = (NetworkImageView)findViewById(R.id.networkImageView);
         awardsTextView = (TextView)findViewById(R.id.awardsText);
         titleTextView = (TextView)findViewById(R.id.movieTitle);
@@ -43,6 +48,7 @@ public class RequestedMovie extends Activity {
         timeTextView = (TextView)findViewById(R.id.movieTime);
         genreTextView = (TextView)findViewById(R.id.movieGenre);
         plotTextView = (TextView)findViewById(R.id.moviePlot);
+        trailerTextView = (TextView)findViewById(R.id.trailerViewLink);
     }
 
     private void populateView(){
@@ -57,6 +63,17 @@ public class RequestedMovie extends Activity {
         timeTextView.setText(timeTextView.getText() + "  " + movie.getRuntime());
         genreTextView.setText(genreTextView.getText() + "  " + movie.getGenre());
         plotTextView.setText(plotTextView.getText()  + movie.getPlot());
+        trailerTextView.setText("click me bitch");
+
+        trailerTextView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(),TrailerActivity.class);
+                intent.putExtra("PREVIEW_URL", movie.getTrailerURL());
+                startActivity(intent);
+            }
+        });
+
     }
 
     @Override

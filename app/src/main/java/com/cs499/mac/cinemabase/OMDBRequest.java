@@ -4,6 +4,7 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.util.Log;
+import android.util.Xml;
 import android.widget.Toast;
 
 import com.android.volley.Request;
@@ -15,6 +16,7 @@ import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 
 import org.json.JSONObject;
+import org.xmlpull.v1.XmlPullParser;
 
 public class OMDBRequest {
 
@@ -56,18 +58,19 @@ public class OMDBRequest {
                 new Response.Listener<JSONObject>(){
 
                     @Override
-                    public void onResponse(JSONObject response){
+                    public void onResponse(final JSONObject response){
                         Log.d(TAG, "json obj " + jsObj.toString());
                         Log.d(TAG, "RESPONSE: " + response);
 
                         if(moviePreviews){
-                            String xmlHardURL = "http://api.traileraddict.com/?actor=kate-beckinsale&count=8&width=640";
+                            String xmlHardURL = "http://www.androidbegin.com/tutorial/AndroidCommercial.3gp";
                             moviePrevs = new StringRequest(Request.Method.GET, xmlHardURL,
                                     new Response.Listener<String>()
                                     {
                                         @Override
                                         public void onResponse(String xmlResp) {
                                             Log.d(TAG,"xml " + xmlResp);
+                                            parseObject(response, xmlResp);
                                             mProgressDialog.dismiss();
                                         }
                                     },
@@ -82,7 +85,7 @@ public class OMDBRequest {
                             );
                             queue.add(moviePrevs);
                         } else {
-                            parseObject(response);
+                            parseObject(response, null);
                             mProgressDialog.dismiss();
                         }
                     }
@@ -101,7 +104,7 @@ public class OMDBRequest {
 
     }
 
-    private void parseObject(JSONObject jsObj){
+    private void parseObject(JSONObject jsObj, String xml){
 
         //create movie and attempt to parse
         Movie movie = new Movie(jsObj);
@@ -113,6 +116,12 @@ public class OMDBRequest {
             Toast.makeText(context,"Movie was not found",Toast.LENGTH_SHORT).show();
             return;
         }
+
+        if(xml != null){
+            movie.parseXML(xml);
+        }
+
+        Log.d(TAG,"preview url " + movie.getTrailerURL());
 
         Log.d(TAG, "Initializing movie activity");
         Intent intent = new Intent(context,RequestedMovie.class);

@@ -31,6 +31,14 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:textAlignment="center"/>
+
+        <TextView
+            android:id="@+id/trailerViewLink"
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:textAlignment="center"
+            android:clickable="true"/>
     </LinearLayout>
 
     <!-- Layout for movie information -->

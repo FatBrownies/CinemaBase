@@ -5,6 +5,13 @@ import android.os.Parcelable;
 import android.util.Log;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.xmlpull.v1.XmlPullParser;
+import org.xmlpull.v1.XmlPullParserException;
+import org.xmlpull.v1.XmlPullParserFactory;
+
+import java.io.ByteArrayInputStream;
+import java.io.IOException;
+import java.nio.charset.StandardCharsets;
 
 /**
  * class implements Parcelable to be able to pass objects between activities
@@ -21,6 +28,7 @@ public class Movie implements Parcelable {
     private String plot;
     private String awards;
     private String stringURL;
+    private String trailerURL;
 
     private JSONObject jsObj;
 
@@ -50,6 +58,7 @@ public class Movie implements Parcelable {
         this.plot = objectData[5];
         this.awards = objectData[6];
         this.stringURL = objectData[7];
+        this.trailerURL = "";
     }
 
     /**
@@ -110,6 +119,47 @@ public class Movie implements Parcelable {
         });
     }
 
+    public void parseXML(String xmlString){
+        XmlPullParserFactory pullParserFactory;
+        try{
+            pullParserFactory = XmlPullParserFactory.newInstance();
+            XmlPullParser parser =  pullParserFactory.newPullParser();
+            parser.setInput(new ByteArrayInputStream(xmlString.getBytes()),null);
+            parseXMLObject(parser);
+
+        } catch (Exception e) {
+            Log.e(TAG,"Error parsing xml string in movie class");
+            e.printStackTrace();
+        }
+    }
+
+    private void parseXMLObject(XmlPullParser parser){
+        try {
+            int eventType = parser.getEventType();
+
+            while(eventType != XmlPullParser.END_DOCUMENT){
+                String name = null;
+                if(eventType == XmlPullParser.START_TAG){
+                    name = parser.getName();
+                    if(name.equals("link")){
+                        trailerURL = parser.nextText();
+                        return;
+                    }
+                }
+                eventType = parser.next();
+            }
+        } catch (XmlPullParserException e) {
+            Log.e(TAG, "Error parsing xml object in movie class");
+            e.printStackTrace();
+            return;
+        } catch (IOException e) {
+            Log.e(TAG,"IO exception at parse xml object");
+            e.printStackTrace();
+            return;
+        }
+
+    }
+
     public static final Creator<Movie> CREATOR = new Creator<Movie>(){
 
         @Override
@@ -153,6 +203,10 @@ public class Movie implements Parcelable {
 
     public String getStringURL(){
         return stringURL;
+    }
+
+    public String getTrailerURL(){
+        return trailerURL;
     }
 
     public String toString(){
