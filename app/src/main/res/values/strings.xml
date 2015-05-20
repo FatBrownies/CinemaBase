@@ -27,17 +27,12 @@
     <string name="search_hint">Movie Search</string>
     <string name="title_activity_requested_movie">RequestedMovie</string>
 
-<!--Temp list
-    <string-array name="topMovies">
-        <item>Avengers: Age of Ultron</item>
-        <item>Hot Pursuit</item>
-        <item>The Age of Adaline</item>
-        <item>Furious Seven</item>
-        <item>Paul Blart: Mall Cop 2</item>
-        <item>Ex Machina</item>
-        <item>Home</item>
+    <string-array name="spinnerMovieDatabase">
+        <item>OMDB</item>
+        <item>RTDB</item>
+        <item>IMDB</item>
     </string-array>
--->
+
     <string-array name="topMovies">
         <item>Avengers: Age of Ultron</item>
         <item>Hot Pursuit</item>

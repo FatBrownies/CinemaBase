@@ -1,6 +1,6 @@
 package com.cs499.mac.cinemabase;
 
-import java.util.Random;
+import java.util.*;
 import android.app.Activity;
 import android.app.ListActivity;
 import android.content.Intent;
@@ -24,6 +24,7 @@ import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.SearchView;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -49,7 +50,7 @@ import com.firebase.client.ValueEventListener;
 
 import org.json.JSONObject;
 
-public class MainActivity extends ListActivity {
+public class MainActivity extends ListActivity implements AdapterView.OnItemSelectedListener {
 
     // TODO: change this to your own Firebase URL
     private static final String FIREBASE_URL = "https://flickering-torch-2608.firebaseio.com/";
@@ -66,8 +67,7 @@ public class MainActivity extends ListActivity {
     //drawer options
     private final int SOCIAL    = 0;
     private final int SETTINGS  = 1;
-    private final int HELP      = 2;
-    private final int LOGOUT    = 3;
+    private final int LOGOUT    = 2;
 
     //Drawer components
     private String[] mDrawerTitles;
@@ -93,6 +93,9 @@ public class MainActivity extends ListActivity {
     private TopMoviesListAdapter moviesListAdapter;
     private final String SAVED_MOVIES = "SAVED_MOVIES_INSTANCE";
 
+    //top movie database
+    Spinner spinnerDB;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         Log.d(TAG, "main oncreate");
@@ -111,15 +114,20 @@ public class MainActivity extends ListActivity {
         //setup firebase
         initFirebase();
 
+        //setup Spinner
+        initSpinnerDB();
+
         //setup top movies view
+        initTopMoviesView();
         if(savedInstanceState != null && savedInstanceState.containsKey(SAVED_MOVIES)){
             Parcelable parcelArray[] =savedInstanceState.getParcelableArray(SAVED_MOVIES);
             topMoviesArray = new Movie[parcelArray.length];
             for(int i = 0; i < parcelArray.length; ++i){
                 topMoviesArray[i] = (Movie) parcelArray[i];
             }
+
         }
-        initTopMoviesView();
+
     }
 
     private void initFirebase(){
@@ -190,7 +198,7 @@ public class MainActivity extends ListActivity {
         mCallback = new FacebookCallback<LoginResult>() {
             @Override
             public void onSuccess(LoginResult loginResult) {
-                Toast.makeText(MainActivity.this,"Connected to Facebook", Toast.LENGTH_SHORT).show();
+                Toast.makeText(MainActivity.this, "Connected to Facebook", Toast.LENGTH_SHORT).show();
             }
 
             @Override
@@ -224,15 +232,15 @@ public class MainActivity extends ListActivity {
     }
 
     @Override
-    public void onSaveInstanceState(Bundle savedInstance){
+    public void onSaveInstanceState(Bundle savedInstance) {
         super.onSaveInstanceState(savedInstance);
         Log.d(TAG, "onSavedInstanceState called");
         savedInstance.putParcelableArray(SAVED_MOVIES, topMoviesArray);
     }
 
     @Override
-    protected void onResume(){
-        Log.d(TAG,"onResume");
+    protected void onResume() {
+        Log.d(TAG, "onResume");
         super.onResume();
 
         //used by the facebook api Logs 'install' and 'app activate'
@@ -266,7 +274,7 @@ public class MainActivity extends ListActivity {
         searchMovie = new OMDBRequest(this);
 
         //initialize movie search view and attach listeners
-        searchView = (SearchView)findViewById(R.id.searchBar);
+        searchView = (SearchView) findViewById(R.id.searchBar);
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
@@ -285,7 +293,7 @@ public class MainActivity extends ListActivity {
     //handle movie query
     private void movieSearch(String movie){
         if( movie == null || movie.length() == 0){
-            Log.d(TAG,"Movie title query was empty");
+            Log.d(TAG, "Movie title query was empty");
             return;
         }
         searchView.setQuery("", false);
@@ -312,6 +320,34 @@ public class MainActivity extends ListActivity {
                 R.layout.drawer_list_item,mDrawerTitles));
         mDrawerList.setOnItemClickListener(new DrawerItemClickListener());
 
+    }
+
+    /*
+    * Implements methods for spinner movie database
+    * */
+
+    public void initSpinnerDB(){
+        spinnerDB = (Spinner) findViewById(R.id.spinnerDB);
+        ArrayAdapter adapter = ArrayAdapter.createFromResource(this,R.array.spinnerMovieDatabase,android.R.layout.simple_spinner_item);
+        spinnerDB.setAdapter(adapter);
+        spinnerDB.setOnItemSelectedListener(this);
+    }
+    @Override
+    public void onItemSelected(AdapterView<?> adapterView, View view, int pos, long l) {
+        if(pos == 0) {
+            Toast.makeText(this, "Open Movie Database", Toast.LENGTH_LONG).show();
+        }
+        else if(pos == 1) {
+            Toast.makeText(this, "Rotten Tomatoes Movie Database", Toast.LENGTH_LONG).show();
+        }
+        else{
+            Toast.makeText(this, "Internet Movie Database", Toast.LENGTH_LONG).show();
+        }
+    }
+
+    @Override
+    public void onNothingSelected(AdapterView<?> adapterView) {
+        Toast.makeText(this, "Movie Database Not Selected", Toast.LENGTH_LONG).show();
     }
 
 
@@ -505,5 +541,6 @@ public class MainActivity extends ListActivity {
         );
         MySingleton.getInstance(this).addToRequestQueue(jsObjReq);
     }
+
 
 }
