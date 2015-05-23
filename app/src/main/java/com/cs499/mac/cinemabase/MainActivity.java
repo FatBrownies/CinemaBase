@@ -146,7 +146,7 @@ public class MainActivity extends ListActivity implements AdapterView.OnItemSele
         inputText.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
             public boolean onEditorAction(TextView textView, int actionId, KeyEvent keyEvent) {
-                if (actionId == EditorInfo.IME_NULL && keyEvent.getAction() == KeyEvent.ACTION_DOWN) {
+                if (actionId == EditorInfo.IME_ACTION_DONE) {
                     sendMessage();
                 }
                 return true;
