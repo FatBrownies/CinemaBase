@@ -34,9 +34,17 @@
     </string-array>
 
     <!--spinner urls-->
-    <string name="movie_theaters_url">http://api.rottentomatoes.com/api/public/v1.0/lists/movies/in_theaters.json?page_limit=7&amp;page=1country=us&amp;apikey=p2f8x49q6kbdznmudd7vmp78</string>
-    <string name="top_rentals_url">http://api.rottentomatoes.com/api/public/v1.0/lists/dvds/top_rentals.json?limit=7&amp;country=us&amp;apikey=p2f8x49q6kbdznmudd7vmp78</string>
-    <string name="new_releases_url">http://api.rottentomatoes.com/api/public/v1.0/lists/dvds/new_releases.json?page_limit=7&amp;page=1&amp;country=us&amp;apikey=p2f8x49q6kbdznmudd7vmp78</string>
+    <string-array name="spinnerDatabaseUrls">
+        <item>
+            http://api.rottentomatoes.com/api/public/v1.0/lists/movies/in_theaters.json?page_limit=7&amp;page=1&amp;country=us&amp;apikey=p2f8x49q6kbdznmudd7vmp78
+        </item>
+        <item>
+            http://api.rottentomatoes.com/api/public/v1.0/lists/dvds/top_rentals.json?limit=7&amp;country=us&amp;apikey=p2f8x49q6kbdznmudd7vmp78
+        </item>
+        <item>
+            http://api.rottentomatoes.com/api/public/v1.0/lists/dvds/new_releases.json?page_limit=7&amp;page=1&amp;country=us&amp;apikey=p2f8x49q6kbdznmudd7vmp78
+        </item>
+    </string-array>
 
 
     <string-array name="topMovies">

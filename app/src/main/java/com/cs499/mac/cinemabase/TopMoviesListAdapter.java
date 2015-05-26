@@ -76,8 +76,13 @@ public class TopMoviesListAdapter extends BaseAdapter {
         convertView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Movie m = getItem(position);
                 Intent intent = new Intent(mContext, RequestedMovie.class);
-                intent.putExtra("movie",getItem(position));
+                if(m == null){
+                    Log.d(TAG,"movie is null");
+                    return;
+                }
+                intent.putExtra("movie",m);
                 mContext.startActivity(intent);
             }
         });

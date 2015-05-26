@@ -7,7 +7,6 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.database.DataSetObserver;
-import android.nfc.Tag;
 import android.os.Parcelable;
 import android.support.v4.view.GravityCompat;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -22,6 +21,7 @@ import android.view.inputmethod.EditorInfo;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.SearchView;
 import android.widget.Spinner;
@@ -32,7 +32,6 @@ import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
-import com.android.volley.toolbox.StringRequest;
 import com.facebook.AccessToken;
 import com.facebook.AccessTokenTracker;
 import com.facebook.CallbackManager;
@@ -48,6 +47,7 @@ import com.firebase.client.Firebase;
 import com.firebase.client.FirebaseError;
 import com.firebase.client.ValueEventListener;
 
+import org.json.JSONArray;
 import org.json.JSONObject;
 
 public class MainActivity extends ListActivity implements AdapterView.OnItemSelectedListener {
@@ -94,7 +94,10 @@ public class MainActivity extends ListActivity implements AdapterView.OnItemSele
     private final String SAVED_MOVIES = "SAVED_MOVIES_INSTANCE";
 
     //top movie database
-    Spinner spinnerDB;
+    private Spinner spinnerDB;
+    private String[] spinnerDBUrls;
+    private LinearLayout progressLayout;
+    private LinearLayout topMoviesLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -335,13 +338,13 @@ public class MainActivity extends ListActivity implements AdapterView.OnItemSele
     @Override
     public void onItemSelected(AdapterView<?> adapterView, View view, int pos, long l) {
         if(pos == 0) {
-            Toast.makeText(this, "Open Movie Database", Toast.LENGTH_LONG).show();
+            imdbRequestTop(0);
         }
         else if(pos == 1) {
-            Toast.makeText(this, "Rotten Tomatoes Movie Database", Toast.LENGTH_LONG).show();
+            imdbRequestTop(1);
         }
         else{
-            Toast.makeText(this, "Internet Movie Database", Toast.LENGTH_LONG).show();
+            imdbRequestTop(2);
         }
     }
 
@@ -449,7 +452,7 @@ public class MainActivity extends ListActivity implements AdapterView.OnItemSele
 
     @Override
     public void onStart() {
-        Log.d(TAG,"onStart");
+        Log.d(TAG, "onStart");
         super.onStart();
         // Setup our view and list adapter. Ensure it scrolls to the bottom as data changes
         final ListView listView = getListView();
@@ -487,17 +490,57 @@ public class MainActivity extends ListActivity implements AdapterView.OnItemSele
 
     //init components
     private void initTopMoviesView(){
-        //this should be replaced by a dynamic call to a server
-        topMoviesNames = getResources().getStringArray(R.array.topMovies);
-
+        topMoviesLayout = (LinearLayout)findViewById(R.id.topMoviesLayout);
         topMoviesList = (ListView)findViewById(R.id.topMoviesListView);
+        progressLayout = (LinearLayout) findViewById(R.id.progressbar_view);
+        spinnerDBUrls = getResources().getStringArray(R.array.spinnerDatabaseUrls);
+        imdbRequestTop(0);
+    }
 
-        //top movies list view
-        if(topMoviesArray == null){
-            pullMoviesFromServer();
-        } else {
-            moviesListAdapter = new TopMoviesListAdapter(this,topMoviesArray);
-            topMoviesList.setAdapter(moviesListAdapter);
+    /**
+     * request the top movies from the selected spinner option
+     * @param option
+     */
+    private void imdbRequestTop(int option){
+        progressLayout.setVisibility(View.VISIBLE);
+        topMoviesLayout.setVisibility(View.GONE);
+        final JSONObject jsObj = new JSONObject();
+        JsonObjectRequest jsObjReq = new JsonObjectRequest(Request.Method.GET,
+                spinnerDBUrls[option], jsObj,
+                new Response.Listener<JSONObject>(){
+
+                    @Override
+                    public void onResponse(JSONObject movieResponse){
+                        parseImdb(movieResponse);
+                        pullMoviesFromServer();
+                    }
+                },
+                new Response.ErrorListener(){
+                    @Override
+                    public void onErrorResponse(VolleyError error){
+                        Log.e(TAG,"Error with imdb request");
+                        Toast.makeText(MainActivity.this,"Error fetching from IMDB",Toast.LENGTH_SHORT).show();
+                    }
+                }
+        );
+        MySingleton.getInstance(this).addToRequestQueue(jsObjReq);
+    }
+
+    /**
+     * parses imdb json response, extracts the name of the movies and stores them in an array
+     * @param response
+     */
+    private void parseImdb(JSONObject response){
+        try{
+            JSONArray arrayJson = response.getJSONArray("movies");
+            topMoviesNames = new String[arrayJson.length()];
+            for(int i = 0; i < arrayJson.length(); ++i){
+                topMoviesNames[i] = arrayJson.getJSONObject(i).getString("title");
+            }
+        }catch (Exception e){
+            Log.e(TAG, "Error parsing imdb json response");
+            Toast.makeText(MainActivity.this,"An error ocurred with imdb response",Toast.LENGTH_SHORT).show();
+            e.printStackTrace();
         }
     }
 
@@ -516,23 +559,25 @@ public class MainActivity extends ListActivity implements AdapterView.OnItemSele
         }
     }
 
-    private void movieRequest(String movieName, final int index){
+    private void movieRequest(String movieName, final int index) {
         String url = new OMDBRequest().constructURL(movieName);
         final JSONObject jsObj = new JSONObject();
         JsonObjectRequest jsObjReq = new JsonObjectRequest(Request.Method.GET,
                 url, jsObj,
-                new Response.Listener<JSONObject>(){
+                new Response.Listener<JSONObject>() {
 
                     @Override
-                    public void onResponse(JSONObject movieResponse){
+                    public void onResponse(JSONObject movieResponse) {
                         topMoviesArray[index] = new Movie(movieResponse);
                         topMoviesArray[index].parse();
+                        progressLayout.setVisibility(View.GONE);
+                        topMoviesLayout.setVisibility(View.VISIBLE);
                         moviesListAdapter.notifyDataSetChanged();
                     }
                 },
-                new Response.ErrorListener(){
+                new Response.ErrorListener() {
                     @Override
-                    public void onErrorResponse(VolleyError error){
+                    public void onErrorResponse(VolleyError error) {
                         Log.d(TAG, "Error " + error);
                         Log.d(TAG, "Network Response: " + error.networkResponse.statusCode);
                         Log.d(TAG, "Localized Message: " + error.networkResponse.data.toString());
@@ -541,6 +586,4 @@ public class MainActivity extends ListActivity implements AdapterView.OnItemSele
         );
         MySingleton.getInstance(this).addToRequestQueue(jsObjReq);
     }
-
-
 }
