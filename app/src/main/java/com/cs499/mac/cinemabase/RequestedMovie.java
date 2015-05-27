@@ -1,15 +1,19 @@
 package com.cs499.mac.cinemabase;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
+import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.android.volley.toolbox.ImageLoader;
 import com.android.volley.toolbox.NetworkImageView;
 
 
-public class RequestedMovie extends Activity {
+public class RequestedMovie extends Activity implements View.OnClickListener{
 
     private final String TAG = "MyTag";
 
@@ -31,6 +35,7 @@ public class RequestedMovie extends Activity {
 
         initInstances();
         populateView();
+        buttonPressed();
     }
 
     private void initInstances(){
@@ -43,6 +48,21 @@ public class RequestedMovie extends Activity {
         timeTextView = (TextView)findViewById(R.id.movieTime);
         genreTextView = (TextView)findViewById(R.id.movieGenre);
         plotTextView = (TextView)findViewById(R.id.moviePlot);
+    }
+
+    public void buttonPressed(){
+        final Button login = (Button) findViewById(R.id.backB);
+        login.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                // Perform action on click
+                Toast toast = Toast.makeText(getApplicationContext(),"",Toast.LENGTH_SHORT);
+                toast.show();
+                // Simulates back button
+                Intent MainActivityIntent = new Intent(RequestedMovie.this, MainActivity.class);
+                startActivity(MainActivityIntent);
+            }
+        });
+
     }
 
     private void populateView(){
@@ -64,5 +84,10 @@ public class RequestedMovie extends Activity {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_requested_movie, menu);
         return true;
+    }
+
+    @Override
+    public void onClick(View view) {
+        //TODO
     }
 }
