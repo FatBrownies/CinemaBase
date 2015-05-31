@@ -12,6 +12,7 @@ import android.support.v4.view.GravityCompat;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v4.widget.DrawerLayout;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.KeyEvent;
@@ -38,7 +39,10 @@ import com.facebook.CallbackManager;
 import com.facebook.FacebookCallback;
 import com.facebook.FacebookException;
 import com.facebook.FacebookSdk;
+import com.facebook.GraphRequest;
+import com.facebook.GraphResponse;
 import com.facebook.appevents.AppEventsLogger;
+import com.facebook.login.LoginManager;
 import com.facebook.login.LoginResult;
 import com.facebook.login.widget.LoginButton;
 
@@ -48,6 +52,7 @@ import com.firebase.client.FirebaseError;
 import com.firebase.client.ValueEventListener;
 
 import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 public class MainActivity extends ListActivity implements AdapterView.OnItemSelectedListener {
@@ -85,6 +90,10 @@ public class MainActivity extends ListActivity implements AdapterView.OnItemSele
     private CallbackManager mCallbackManager;
     private FacebookCallback<LoginResult> mCallback;
     private AccessTokenTracker mAccessTokenTracker;
+    private static final String NAME = "name";
+    private static final String FIELDS = "fields";
+    private static final String REQUEST_FIELDS =
+            TextUtils.join(",", new String[]{NAME});
 
     //top movies components
     private ListView topMoviesList;
@@ -137,7 +146,7 @@ public class MainActivity extends ListActivity implements AdapterView.OnItemSele
         Firebase.setAndroidContext(this);
 
         // Make sure we have a mUsername
-        setupUsername();
+        setupUsername("");
 
         //setTitle("Chatting as " + mUsername);
 
@@ -177,15 +186,23 @@ public class MainActivity extends ListActivity implements AdapterView.OnItemSele
         }
     }
 
-    private void setupUsername() {
+    private void setupUsername(String name) {
+
+        Log.d(TAG,"Updating name " + name);
+
+        //check if user already has a name
         SharedPreferences prefs = getApplication().getSharedPreferences("ChatPrefs", 0);
         mUsername = prefs.getString("Review", null);
-        if (mUsername == null) {
+
+        //if we are passing in a name to be set
+        if(name.length() > 0){
+            mUsername = name;
+        } else {
             Random r = new Random();
             // Assign a random user name if we don't have one saved.
             mUsername = "Review" + r.nextInt(100000);
-            prefs.edit().putString("Review", mUsername).commit();
         }
+        prefs.edit().putString("Review", mUsername).commit();
     }
 
     //initialize facebook api components
@@ -201,6 +218,8 @@ public class MainActivity extends ListActivity implements AdapterView.OnItemSele
         mCallback = new FacebookCallback<LoginResult>() {
             @Override
             public void onSuccess(LoginResult loginResult) {
+
+                setFacebookName();
                 Toast.makeText(MainActivity.this, "Connected to Facebook", Toast.LENGTH_SHORT).show();
             }
 
@@ -221,11 +240,40 @@ public class MainActivity extends ListActivity implements AdapterView.OnItemSele
         mAccessTokenTracker = new AccessTokenTracker() {
             @Override
             protected void onCurrentAccessTokenChanged(AccessToken oldToken, AccessToken newToken) {
-                Log.d(TAG,"access token changed");
+                setFacebookName();
             }
         };
 
         mAccessTokenTracker.startTracking();
+    }
+
+    private void setFacebookName(){
+        final AccessToken accessToken = AccessToken.getCurrentAccessToken();
+        if(accessToken != null) {
+            GraphRequest req = GraphRequest.newMeRequest(
+                    accessToken, new GraphRequest.GraphJSONObjectCallback() {
+                        @Override
+                        public void onCompleted(JSONObject me, GraphResponse response) {
+                            if(me != null){
+                                try{
+                                    setupUsername(me.getString("name"));
+                                } catch (JSONException e){
+                                    Log.e(TAG,"Error parsing facebook name response");
+                                    Toast.makeText(MainActivity.this,"Error fetching facebook info",
+                                            Toast.LENGTH_SHORT).show();
+                                    setupUsername("");
+                                }
+                            }
+                        }
+                    }
+            );
+            Bundle params = new Bundle();
+            params.putString(FIELDS,REQUEST_FIELDS);
+            req.setParameters(params);
+            GraphRequest.executeBatchAsync(req);
+        } else {
+            setupUsername("");
+        }
     }
 
     @Override
@@ -381,6 +429,7 @@ public class MainActivity extends ListActivity implements AdapterView.OnItemSele
                 intent = new Intent(this, HelpPage.class);
                 break;
             case LOGOUT:
+                LoginManager.getInstance().logOut();
                 break;
             default:
                 Log.e(TAG,"Error: position " + pos + " is out of range");
