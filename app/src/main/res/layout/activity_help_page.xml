@@ -13,13 +13,11 @@
         android:layout_height="match_parent">
 
     <TextView
+        android:id="@+id/devInfo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textSize="@dimen/abc_text_size_large_material"
-        android:text="Movie Rating App: v 0.1\n
-        Team: FatBrownies\n
-        Developers: Daniel Hernandez, Victor Romero\n
-        Github: https://github.com/FatBrownies/CinemaBase\n"
+        android:text="@string/devInfo"
         android:textColorHighlight="#FFF"
         android:textColor="#FFF"
         android:layout_centerVertical="true"
@@ -32,7 +30,9 @@
         android:layout_height="wrap_content"
         android:padding="@dimen/abc_text_size_button_material"
         android:background="@color/button_material_light"
-        android:text="Support"
-        android:layout_centerHorizontal="true"/>
+        android:layout_below="@+id/devInfo"
+        android:layout_centerHorizontal="true"
+        android:text="Support"/>
     </LinearLayout>
 </RelativeLayout>
+

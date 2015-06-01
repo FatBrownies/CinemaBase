@@ -55,8 +55,7 @@ public class RequestedMovie extends Activity implements View.OnClickListener{
         login.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 // Perform action on click
-                //Toast toast = Toast.makeText(getApplicationContext(),"",Toast.LENGTH_SHORT);
-                //toast.show();
+
                 // Simulates back button
                 Intent MainActivityIntent = new Intent(RequestedMovie.this, MainActivity.class);
                 startActivity(MainActivityIntent);

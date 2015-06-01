@@ -6,6 +6,8 @@ import android.util.Log;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.Serializable;
+
 /**
  * class implements Parcelable to be able to pass objects between activities
  */

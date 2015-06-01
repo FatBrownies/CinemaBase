@@ -179,12 +179,12 @@ public class MainActivity extends ListActivity implements AdapterView.OnItemSele
 
     private void setupUsername() {
         SharedPreferences prefs = getApplication().getSharedPreferences("ChatPrefs", 0);
-        mUsername = prefs.getString("Review", null);
+        mUsername = prefs.getString("Reviewer ", null);
         if (mUsername == null) {
             Random r = new Random();
             // Assign a random user name if we don't have one saved.
-            mUsername = "Review" + r.nextInt(100000);
-            prefs.edit().putString("Review", mUsername).commit();
+            mUsername = "Reviewer " + r.nextInt(100000);
+            prefs.edit().putString("Reviewer ", mUsername).commit();
         }
     }
 

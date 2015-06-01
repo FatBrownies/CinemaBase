@@ -13,8 +13,8 @@
         android:paddingBottom="@dimen/activity_vertical_margin"
         android:id="@+id/mainLayout"
         tools:context=".MainActivity"
-        android:background="@color/background_floating_material_light"
         android:orientation="horizontal"
+        android:background="@drawable/red_curtain"
         android:baselineAligned="false">
 
         <FrameLayout
@@ -53,6 +53,7 @@
 
                 <android.widget.SearchView
                     android:id="@+id/searchBar"
+                    android:focusable="false"
                     android:iconifiedByDefault="@bool/abc_config_showMenuShortcutsWhenKeyboardPresent"
                     android:queryHint="Browse Movie Title"
                     android:layout_width="wrap_content"
@@ -71,12 +72,14 @@
 
                 <ListView
                     android:id="@android:id/list"
-                    android:layout_width="match_parent"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_above="@+id/listFooter"
                     android:layout_alignParentTop="true"
                     android:transcriptMode="alwaysScroll"
-                    android:layout_centerVertical="true" />
+                    android:layout_centerVertical="true"
+                    android:layout_alignParentRight="true"
+                    android:layout_alignParentEnd="true" />
 
                 <LinearLayout
                     android:id="@+id/listFooter"
@@ -91,6 +94,7 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:inputType="textShortMessage"
+                        android:hint="Chat about a movie title"
                         android:lines="1"
                         android:singleLine="true" />
 
@@ -114,13 +118,14 @@
             android:id="@+id/spinnerDB"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:background="@mipmap/movie_reel_converted"
             android:entries="@array/spinnerMovieDatabase"/>
         <ListView
             android:id="@+id/topMoviesListView"
             android:layout_width="143dp"
             android:layout_height="0dp"
             android:transcriptMode="alwaysScroll"
-            android:entries="@array/topMovies"
+
             android:layout_weight="1"/>
 
     </LinearLayout>
@@ -128,7 +133,7 @@
         <!--progress view layout-->
         <LinearLayout
             android:id="@+id/progressbar_view"
-            android:layout_width="wrap_content"
+            android:layout_width="230dp"
             android:layout_height="fill_parent"
             android:gravity="center_horizontal"
             android:orientation="vertical" >
