@@ -14,9 +14,9 @@
     <string name="plotLabel">Plot: </string>
 
     <string-array name="drawerTitles">
-        <item>Facebook connection</item>
+        <item>Guest Login</item>
         <item>Support</item>
-        <item>Logout</item>
+        <item>Guest Logout</item>
     </string-array>
 
     <!--Strings for drawer items-->
@@ -47,7 +47,7 @@
     </string-array>
 
     <string name="devInfo">
-        Movie Rating App: v 1.0\n
+        Movie Rating App: v 3\n
         Team: FatBrownies\n
         Developers: Daniel Hernandez, Victor Romero\n
         Github: https://github.com/FatBrownies/CinemaBase\n

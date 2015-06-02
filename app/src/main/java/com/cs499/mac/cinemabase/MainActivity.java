@@ -430,6 +430,7 @@ public class MainActivity extends ListActivity implements AdapterView.OnItemSele
                 break;
             case LOGOUT:
                 LoginManager.getInstance().logOut();
+                Toast.makeText(this,"Logged out of Guest Chat",Toast.LENGTH_SHORT).show();
                 break;
             default:
                 Log.e(TAG,"Error: position " + pos + " is out of range");
@@ -567,8 +568,8 @@ public class MainActivity extends ListActivity implements AdapterView.OnItemSele
                 new Response.ErrorListener(){
                     @Override
                     public void onErrorResponse(VolleyError error){
-                        Log.e(TAG,"Error with imdb request");
-                        Toast.makeText(MainActivity.this,"Error fetching from IMDB",Toast.LENGTH_SHORT).show();
+                        Log.e(TAG,"Error with movie request");
+                        Toast.makeText(MainActivity.this,"Error fetching from Rotten Tomatoes",Toast.LENGTH_SHORT).show();
                     }
                 }
         );

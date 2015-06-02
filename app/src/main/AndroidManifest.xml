@@ -17,7 +17,8 @@
         <activity
             android:name="com.cs499.mac.cinemabase.MainActivity"
             android:label="@string/app_name"
-            android:screenOrientation="landscape">
+            android:screenOrientation="sensorLandscape"
+            android:windowSoftInputMode="stateHidden">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -28,7 +29,7 @@
         <!--Facebook activity-->
         <activity
             android:name="com.facebook.FacebookActivity"
-            android:screenOrientation="landscape"
+            android:screenOrientation="sensorLandscape"
             android:configChanges=
                 "keyboard|keyboardHidden|screenLayout|screenSize|orientation"
             android:theme="@android:style/Theme.Translucent.NoTitleBar"
@@ -38,7 +39,7 @@
         <activity
             android:name="com.cs499.mac.cinemabase.RequestedMovie"
             android:label="@string/title_activity_requested_movie"
-            android:screenOrientation="landscape">
+            android:screenOrientation="sensorLandscape">
 
         </activity>
 
@@ -47,7 +48,7 @@
             android:name="com.cs499.mac.cinemabase.HelpPage"
             android:label="@string/title_activity_help_page"
             android:parentActivityName="com.cs499.mac.cinemabase.MainActivity"
-            android:screenOrientation="landscape" >
+            android:screenOrientation="sensorLandscape" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.cs499.mac.cinemabase.MainActivity" />

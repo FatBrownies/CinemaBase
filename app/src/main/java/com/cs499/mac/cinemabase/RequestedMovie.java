@@ -50,15 +50,21 @@ public class RequestedMovie extends Activity implements View.OnClickListener{
         plotTextView = (TextView)findViewById(R.id.moviePlot);
     }
 
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+    }
+
     public void buttonPressed(){
         final Button login = (Button) findViewById(R.id.backB);
         login.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 // Perform action on click
 
-                // Simulates back button
-                Intent MainActivityIntent = new Intent(RequestedMovie.this, MainActivity.class);
-                startActivity(MainActivityIntent);
+//                // Simulates back button
+//                Intent MainActivityIntent = new Intent(RequestedMovie.this, MainActivity.class);
+//                startActivity(MainActivityIntent);
+                onBackPressed();
             }
         });
 

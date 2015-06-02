@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/CinemaBase.github.io.iml" filepath="$PROJECT_DIR$/CinemaBase.github.io.iml" />
+      <module fileurl="file://$PROJECT_DIR$/CinemaBase.iml" filepath="$PROJECT_DIR$/CinemaBase.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
     </modules>
   </component>

@@ -67,10 +67,9 @@ public class OMDBRequest {
         new Response.ErrorListener(){
             @Override
             public void onErrorResponse(VolleyError error){
-                Log.d(TAG, "Error " + error);
-                Log.d(TAG, "Network Response: " + error.networkResponse.statusCode);
-                Log.d(TAG, "Localized Message: " + error.networkResponse.data.toString());
+                Toast.makeText(context, "Error with network", Toast.LENGTH_SHORT).show();
                 mProgressDialog.dismiss();
+                return;
             }
         });
 
